@@ -30,9 +30,24 @@
       android:id="@+id/fab"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_gravity="bottom|end"
+      android:layout_gravity="center"
       android:layout_margin="@dimen/fab_margin"
+      app:fabSize="normal"
+      app:layout_anchor="@id/bottom_app_bar"
       app:srcCompat="@android:drawable/ic_dialog_email"
+      />
+  <android.support.design.bottomappbar.BottomAppBar
+      android:id="@+id/bottom_app_bar"
+      android:layout_width="match_parent"
+      android:layout_height="?android:actionBarSize"
+      android:layout_gravity="bottom"
+      app:backgroundTint="@color/colorPrimary"
+      app:buttonGravity="bottom"
+      app:fabAlignmentMode="center"
+      app:fabCradleMargin="10dp"
+      app:fabCradleRoundedCornerRadius="50dp"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+      app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
       />
 
 </android.support.design.widget.CoordinatorLayout>

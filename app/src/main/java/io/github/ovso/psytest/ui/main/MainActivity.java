@@ -35,6 +35,10 @@ public class MainActivity extends BaseActivity
     navigationView.setNavigationItemSelectedListener(this);
   }
 
+  @Override public void setupTabLayout() {
+
+  }
+
   @Override
   public void onBackPressed() {
     DrawerLayout drawer = findViewById(R.id.drawer_layout);

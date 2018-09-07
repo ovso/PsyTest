@@ -7,5 +7,7 @@ public interface MainPresenter {
   interface View {
 
     void setupView();
+
+    void setupTabLayout();
   }
 }

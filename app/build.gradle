@@ -3,12 +3,12 @@ apply plugin: 'hugo'
 
 android {
 
-  compileSdkVersion rootProject.compile_sdk_version
+  compileSdkVersion 28
 
   defaultConfig {
     applicationId rootProject.application_id
     minSdkVersion rootProject.min_sdk_version
-    targetSdkVersion rootProject.target_sdk_version
+    targetSdkVersion 28
     versionCode rootProject.version_code
     versionName rootProject.version_name
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -34,10 +34,10 @@ android {
 }
 
 dependencies {
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+  implementation fileTree(include: ['*.jar'], dir: 'libs')
   implementation "com.android.support:appcompat-v7:$rootProject.support_version"
   implementation "com.android.support:design:$rootProject.support_version"
+  implementation "com.android.support:support-v4:$rootProject.support_version"
   implementation "com.android.support.constraint:constraint-layout:$rootProject.constraint_version"
   implementation "com.android.support:cardview-v7:$rootProject.support_version"
 
@@ -74,9 +74,7 @@ dependencies {
   implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofit_version"
   implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp3_version"
   implementation "com.squareup.okhttp3:okhttp:$rootProject.okhttp3_version"
-
   implementation 'com.orhanobut:logger:2.2.0'
-
   testImplementation 'junit:junit:4.12'
   androidTestImplementation 'com.android.support.test:runner:1.0.2'
   androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

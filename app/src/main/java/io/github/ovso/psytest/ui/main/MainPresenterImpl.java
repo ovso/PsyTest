@@ -20,5 +20,6 @@ public class MainPresenterImpl implements MainPresenter {
 
   @Override public void onCreate() {
     view.setupView();
+    view.setupTabLayout();
   }
 }
