@@ -9,7 +9,10 @@ import dagger.android.support.AndroidSupportInjectionModule;
 import io.github.ovso.psytest.App;
 
 @Component(modules = {
-    AndroidSupportInjectionModule.class, AppModule.class, ActivityBuilder.class
+    AndroidSupportInjectionModule.class,
+    AppModule.class,
+    ActivityBuilder.class,
+    FragmentBuilder.class
 }) public interface AppComponent extends AndroidInjector<DaggerApplication> {
   @Component.Builder interface Builder {
     @BindsInstance Builder application(Application application);

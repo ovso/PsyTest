@@ -9,5 +9,11 @@ public interface MainPresenter {
     void setupView();
 
     void setupTabLayout();
+
+    void setupViewPager();
+
+    void showTabName(int position, String name);
+
+    void refresh();
   }
 }
