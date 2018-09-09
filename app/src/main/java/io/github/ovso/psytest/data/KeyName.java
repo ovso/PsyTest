@@ -7,7 +7,10 @@ public enum KeyName {
   MAX_RESULTS("maxResults"),
   ORDER("order"),
   TYPE("type"),
-  VIDEO_SYNDICATED("videoSyndicated");
+  VIDEO_SYNDICATED("videoSyndicated"),
+  KEY("key"),
+
+  PART("part");
 
   private String value;
 

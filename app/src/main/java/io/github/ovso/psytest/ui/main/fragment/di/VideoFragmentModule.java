@@ -7,11 +7,12 @@ import io.github.ovso.psytest.ui.main.fragment.VideoFragment;
 import io.github.ovso.psytest.ui.main.fragment.VideoFragmentPresenter;
 import io.github.ovso.psytest.ui.main.fragment.VideoFragmentPresenterImpl;
 import io.github.ovso.psytest.utils.ResourceProvider;
+import io.github.ovso.psytest.utils.SchedulersFacade;
 
 @Module public class VideoFragmentModule {
 
   @Provides VideoFragmentPresenter provideVideoFragmentPresenter(VideoFragment fragment,
-      SearchRequest searchRequest, ResourceProvider resourceProvider) {
-    return new VideoFragmentPresenterImpl(fragment, searchRequest, resourceProvider);
+      SearchRequest searchRequest, ResourceProvider resourceProvider, SchedulersFacade schedulersFacade) {
+    return new VideoFragmentPresenterImpl(fragment, searchRequest, resourceProvider, schedulersFacade);
   }
 }

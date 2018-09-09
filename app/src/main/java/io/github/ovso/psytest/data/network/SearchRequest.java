@@ -1,6 +1,7 @@
 package io.github.ovso.psytest.data.network;
 
 import android.text.TextUtils;
+import io.github.ovso.psytest.Security;
 import io.github.ovso.psytest.data.KeyName;
 import io.github.ovso.psytest.data.network.model.Search;
 import io.reactivex.Single;
@@ -39,6 +40,8 @@ public class SearchRequest extends BaseRequest<SearchService> {
     queryMap.put(KeyName.ORDER.get(), "viewCount");
     queryMap.put(KeyName.TYPE.get(), "video");
     queryMap.put(KeyName.VIDEO_SYNDICATED.get(), true);
+    queryMap.put(KeyName.KEY.get(), Security.KEY.get());
+    queryMap.put(KeyName.PART.get(), "id");
     if (!TextUtils.isEmpty(pageToken)) {
       queryMap.put(KeyName.PAGE_TOKEN.get(), pageToken);
     }

@@ -1,10 +1,13 @@
 package io.github.ovso.psytest.data.network;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@Getter @AllArgsConstructor public enum ApiEndPoint {
-  SEARCH("http://recruit.heydealer.com/");
+@Getter public enum ApiEndPoint {
+  SEARCH("https://www.googleapis.com/");
+
+  ApiEndPoint(String $value) {
+    url = $value;
+  }
 
   private String url;
 }
