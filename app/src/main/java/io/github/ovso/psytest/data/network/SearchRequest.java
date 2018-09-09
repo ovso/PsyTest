@@ -41,7 +41,7 @@ public class SearchRequest extends BaseRequest<SearchService> {
     queryMap.put(KeyName.TYPE.get(), "video");
     queryMap.put(KeyName.VIDEO_SYNDICATED.get(), true);
     queryMap.put(KeyName.KEY.get(), Security.KEY.get());
-    queryMap.put(KeyName.PART.get(), "id");
+    queryMap.put(KeyName.PART.get(), "snippet");
     if (!TextUtils.isEmpty(pageToken)) {
       queryMap.put(KeyName.PAGE_TOKEN.get(), pageToken);
     }

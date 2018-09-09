@@ -9,7 +9,6 @@ public enum KeyName {
   TYPE("type"),
   VIDEO_SYNDICATED("videoSyndicated"),
   KEY("key"),
-
   PART("part");
 
   private String value;
