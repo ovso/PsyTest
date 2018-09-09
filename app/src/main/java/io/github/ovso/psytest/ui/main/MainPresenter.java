@@ -15,5 +15,7 @@ public interface MainPresenter {
     void showTabName(int position, String name);
 
     void refresh();
+
+    void showTitle(String title);
   }
 }

@@ -20,6 +20,11 @@ public class VideoFragment extends BaseFragment implements VideoFragmentPresente
   }
 
   @Override protected void onActivityCreate(Bundle savedInstanceState) {
-    presenter.onActivityCreated(savedInstanceState);
+    presenter.onActivityCreated(getArguments());
+  }
+
+  @Override public void onDestroyView() {
+    presenter.onDestroyView();
+    super.onDestroyView();
   }
 }

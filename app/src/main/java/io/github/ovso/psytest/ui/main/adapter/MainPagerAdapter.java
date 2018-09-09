@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import io.github.ovso.psytest.data.KeyName;
 import io.github.ovso.psytest.ui.main.fragment.VideoFragment;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter
   @Override public void createItems(int size) {
     for (int i = 0; i < size; i++) {
       Bundle args = new Bundle();
-      args.putInt("position", i);
+      args.putInt(KeyName.POSITION.get(), i);
       items.add(VideoFragment.newInstance(args));
     }
   }

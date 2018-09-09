@@ -4,7 +4,9 @@ import android.os.Bundle;
 
 public interface VideoFragmentPresenter {
 
-  void onActivityCreated(Bundle savedInstanceState);
+  void onActivityCreated(Bundle args);
+
+  void onDestroyView();
 
   interface View {
 

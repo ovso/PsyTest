@@ -23,6 +23,7 @@ public class MainPresenterImpl implements MainPresenter {
   }
 
   @Override public void onCreate() {
+    view.showTitle(resourceProvider.getString(R.string.app_name));
     view.setupView();
     view.setupTabLayout();
     view.setupViewPager();

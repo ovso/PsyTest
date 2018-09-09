@@ -8,3 +8,7 @@
 /build
 /captures
 .externalNativeBuild
+
+keystore.properties
+/app/src/main/java/io/github/ovso/psytest/Security.java
+.idea

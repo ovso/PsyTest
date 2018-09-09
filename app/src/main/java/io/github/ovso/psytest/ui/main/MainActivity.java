@@ -73,6 +73,10 @@ public class MainActivity extends BaseActivity
     adapterView.refresh();
   }
 
+  @Override public void showTitle(String title) {
+    setTitle(title);
+  }
+
   @Override
   public void onBackPressed() {
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
