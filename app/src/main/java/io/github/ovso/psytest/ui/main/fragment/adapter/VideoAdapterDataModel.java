@@ -7,5 +7,7 @@ public interface VideoAdapterDataModel<T> {
 
   void addAll(List<T> items);
 
+  T getItem(int position);
+
   void clear();
 }

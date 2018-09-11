@@ -7,17 +7,20 @@ import io.github.ovso.psytest.data.network.model.SearchItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VideoAdapter extends RecyclerView.Adapter
+public class VideoAdapter extends RecyclerView.Adapter<VideoViewHolder>
     implements VideoAdapterView, VideoAdapterDataModel<SearchItem> {
   private List<SearchItem> items = new ArrayList<>();
 
   @NonNull @Override
-  public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-    return null;
+  public VideoViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    return VideoViewHolder.create(viewGroup);
   }
 
-  @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-
+  @Override
+  public void onBindViewHolder(@NonNull VideoViewHolder viewHolder, int position) {
+    if (viewHolder instanceof Bindable) {
+      viewHolder.bind(getItem(position));
+    }
   }
 
   @Override public int getItemCount() {
@@ -30,6 +33,10 @@ public class VideoAdapter extends RecyclerView.Adapter
 
   @Override public void addAll(List<SearchItem> $items) {
     items.addAll($items);
+  }
+
+  @Override public SearchItem getItem(int position) {
+    return items.get(position);
   }
 
   @Override public void clear() {

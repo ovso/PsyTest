@@ -10,5 +10,8 @@ public interface VideoFragmentPresenter {
 
   interface View {
 
+    void setupRecyclerView();
+
+    void refresh();
   }
 }
