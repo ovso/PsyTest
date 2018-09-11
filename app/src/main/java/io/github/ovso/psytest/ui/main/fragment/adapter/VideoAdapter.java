@@ -44,7 +44,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoViewHolder>
   }
 
   @Override public void refresh() {
-    notifyItemRangeInserted(0, getSize());
+    //notifyItemRangeInserted(0, getSize());
+    notifyDataSetChanged();
   }
 
   @Override public void refresh(int positionStart, int itemCount) {

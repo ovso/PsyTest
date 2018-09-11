@@ -4,14 +4,12 @@ import android.os.Bundle;
 import io.github.ovso.psytest.R;
 import io.github.ovso.psytest.data.KeyName;
 import io.github.ovso.psytest.data.network.SearchRequest;
-import io.github.ovso.psytest.data.network.model.Search;
 import io.github.ovso.psytest.data.network.model.SearchItem;
 import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapterDataModel;
 import io.github.ovso.psytest.utils.ResourceProvider;
 import io.github.ovso.psytest.utils.SchedulersFacade;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import java.util.List;
 import timber.log.Timber;
 
@@ -24,6 +22,7 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
   private String pageToken = null;
   private SchedulersFacade schedulersFacade;
   private VideoAdapterDataModel<SearchItem> adapterDataModel;
+  private String nextPageToken;
 
   public VideoFragmentPresenterImpl(VideoFragmentPresenter.View $view,
       SearchRequest $searchRequest, ResourceProvider $resourceProvider,
@@ -39,17 +38,14 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
     Timber.d("onActivityCreated");
     view.setupRecyclerView();
     int position = args.getInt(KeyName.POSITION.get());
-    String q = resourceProvider.getStringArray(R.array.tabs)[position];
-    q = "심리테스트";
+    String q = resourceProvider.getStringArray(R.array.q)[position];
     Disposable disposable = searchRequest.getResult(q, pageToken)
         .subscribeOn(schedulersFacade.io())
         .observeOn(schedulersFacade.ui())
         .subscribe(
             search -> {
-              Timber.d("search = " + search.toString());
+              nextPageToken = search.getNextPageToken();
               List<SearchItem> items = search.getItems();
-              int size = items.size();
-              Timber.d("size = " + size);
               adapterDataModel.addAll(items);
               view.refresh();
             }, throwable -> {
