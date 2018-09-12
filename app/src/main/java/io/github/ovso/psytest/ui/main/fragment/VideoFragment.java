@@ -1,19 +1,28 @@
 package io.github.ovso.psytest.ui.main.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import butterknife.BindView;
 import io.github.ovso.psytest.R;
+import io.github.ovso.psytest.data.network.model.SearchItem;
+import io.github.ovso.psytest.ui.base.interfaces.OnRecyclerViewItemClickListener;
 import io.github.ovso.psytest.ui.base.view.BaseFragment;
+import io.github.ovso.psytest.ui.base.view.VideoRecyclerView;
 import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapter;
 import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapterView;
+import io.github.ovso.psytest.ui.video.LandscapeVideoActivity;
+import io.github.ovso.psytest.ui.video.PortraitVideoActivity;
 import javax.inject.Inject;
 
-public class VideoFragment extends BaseFragment implements VideoFragmentPresenter.View {
+public class VideoFragment extends BaseFragment implements VideoFragmentPresenter.View,
+    OnRecyclerViewItemClickListener<SearchItem> {
 
-  @BindView(R.id.recycler_view) RecyclerView recyclerView;
+  @BindView(R.id.recycler_view) VideoRecyclerView recyclerView;
   @Inject VideoFragmentPresenter presenter;
   @Inject VideoAdapter adapter;
   @Inject VideoAdapterView adapterView;
@@ -40,9 +49,41 @@ public class VideoFragment extends BaseFragment implements VideoFragmentPresente
   @Override public void setupRecyclerView() {
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerView.setAdapter(adapter);
+    recyclerView.setOnItemClickListener(this);
   }
 
   @Override public void refresh() {
     adapterView.refresh();
+  }
+
+  @Override public void showVideoTypeDialog(DialogInterface.OnClickListener onClickListener) {
+    new AlertDialog.Builder(getContext()).setMessage(R.string.please_select_the_player_mode)
+        .setPositiveButton(R.string.portrait_mode,
+            onClickListener)
+        .setNeutralButton(R.string.landscape_mode, onClickListener)
+        .setNegativeButton(android.R.string.cancel, onClickListener)
+        .show();
+  }
+
+  @Override public void showPortraitVideo(String videoId) {
+    Intent intent = new Intent(getContext(), PortraitVideoActivity.class);
+    intent.putExtra("video_id", videoId);
+    startActivity(intent);
+  }
+
+  @Override public void showLandscapeVideo(String videoId) {
+    Intent intent = new Intent(getContext(), LandscapeVideoActivity.class);
+    intent.putExtra("video_id", videoId);
+    startActivity(intent);
+  }
+
+  @Override public void showYoutubeUseWarningDialog() {
+    new AlertDialog.Builder(getActivity()).setMessage(R.string.youtube_use_warning)
+        .setPositiveButton(android.R.string.ok, null)
+        .show();
+  }
+
+  @Override public void onItemClick(View view, SearchItem data, int itemPosition) {
+    presenter.onItemClick(data);
   }
 }

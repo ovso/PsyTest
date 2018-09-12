@@ -10,9 +10,14 @@ public class App extends DaggerApplication {
     super.onCreate();
 
     AppInitUtils.logger();
+    AppInitUtils.crashlytics(this);
   }
 
   @Override protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
     return DaggerAppComponent.builder().application(this).build();
+  }
+
+  public static boolean isDebug() {
+    return true;
   }
 }

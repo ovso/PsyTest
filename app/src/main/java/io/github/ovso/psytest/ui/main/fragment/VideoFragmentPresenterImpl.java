@@ -1,8 +1,12 @@
 package io.github.ovso.psytest.ui.main.fragment;
 
+import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import com.google.gson.Gson;
 import io.github.ovso.psytest.R;
 import io.github.ovso.psytest.data.KeyName;
+import io.github.ovso.psytest.data.VideoMode;
 import io.github.ovso.psytest.data.network.SearchRequest;
 import io.github.ovso.psytest.data.network.model.SearchItem;
 import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapterDataModel;
@@ -12,6 +16,10 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import java.util.List;
 import timber.log.Timber;
+
+import static io.github.ovso.psytest.data.VideoMode.CANCEL;
+import static io.github.ovso.psytest.data.VideoMode.LANDSCAPE;
+import static io.github.ovso.psytest.data.VideoMode.PORTRAIT;
 
 public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
 
@@ -57,4 +65,30 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
   @Override public void onDestroyView() {
     compositeDisposable.clear();
   }
+
+  @Override public void onItemClick(SearchItem data) {
+    final DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
+      dialog.dismiss();
+
+      try {
+        dialog.dismiss();
+        String videoId = data.getId().getVideoId();
+        switch (VideoMode.toMode(which)) {
+          case PORTRAIT:
+            view.showPortraitVideo(videoId);
+            break;
+          case LANDSCAPE:
+            view.showLandscapeVideo(videoId);
+            break;
+          case CANCEL:
+            break;
+        }
+      } catch (ActivityNotFoundException e) {
+        e.printStackTrace();
+        view.showYoutubeUseWarningDialog();
+      }
+    };
+    view.showVideoTypeDialog(onClickListener);
+  }
 }
+

@@ -58,6 +58,10 @@ public class MainActivity extends BaseActivity
     }
   };
 
+  @Override public boolean isTitle() {
+    return true;
+  }
+
   @Override public void setupViewPager() {
     viewPager.setAdapter(pagerAdapter);
     tabLayout.setupWithViewPager(viewPager);
@@ -74,7 +78,7 @@ public class MainActivity extends BaseActivity
   }
 
   @Override public void showTitle(String title) {
-    setTitle(title);
+    super.setTitle(title);
   }
 
   @Override

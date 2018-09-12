@@ -4,11 +4,14 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 import io.github.ovso.psytest.data.network.model.SearchItem;
+import io.github.ovso.psytest.ui.base.interfaces.OnRecyclerViewItemClickListener;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Setter;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoViewHolder>
     implements VideoAdapterView, VideoAdapterDataModel<SearchItem> {
+  @Setter protected OnRecyclerViewItemClickListener onRecyclerViewItemClickListener;
   private List<SearchItem> items = new ArrayList<>();
 
   @NonNull @Override
@@ -20,6 +23,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoViewHolder>
   public void onBindViewHolder(@NonNull VideoViewHolder viewHolder, int position) {
     if (viewHolder instanceof Bindable) {
       viewHolder.bind(getItem(position));
+      viewHolder.setOnRecyclerViewItemClickListener(onRecyclerViewItemClickListener);
     }
   }
 

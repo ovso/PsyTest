@@ -8,12 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import io.github.ovso.psytest.R;
 import io.github.ovso.psytest.data.network.model.SearchItem;
+import io.github.ovso.psytest.ui.base.interfaces.OnRecyclerViewItemClickListener;
+import lombok.Setter;
 
 public class VideoViewHolder extends RecyclerView.ViewHolder implements Bindable<SearchItem> {
+  private SearchItem data;
   @BindView(R.id.thumbnail_image_view) ImageView thumbnailImageView;
+  @Setter private OnRecyclerViewItemClickListener onRecyclerViewItemClickListener;
 
   private VideoViewHolder(@NonNull View itemView) {
     super(itemView);
@@ -25,9 +30,14 @@ public class VideoViewHolder extends RecyclerView.ViewHolder implements Bindable
         LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_video, parent, false));
   }
 
-  @Override public void bind(SearchItem data) {
+  @Override public void bind(SearchItem $data) {
+    data = $data;
     Glide.with(itemView.getContext())
-        .load(data.getSnippet().getThumbnails().getMedium().getUrl())
+        .load($data.getSnippet().getThumbnails().getMedium().getUrl())
         .into(thumbnailImageView);
+  }
+
+  @OnClick(R.id.root_view) void onClick(View view) {
+    onRecyclerViewItemClickListener.onItemClick(view, data, 0);
   }
 }
