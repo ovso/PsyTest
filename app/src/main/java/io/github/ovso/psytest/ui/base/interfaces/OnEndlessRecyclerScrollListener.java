@@ -16,6 +16,7 @@ public class OnEndlessRecyclerScrollListener extends RecyclerView.OnScrollListen
   OnEndlessRecyclerScrollListener(OnEndlessRecyclerScrollListener.Builder builder) {
     linearLayoutManager = builder.linearLayoutManager;
     onLoadMoreListener = builder.onLoadMoreListener;
+    visibleThreshold = builder.visibleThreshold;
   }
 
   @Override public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -41,8 +42,15 @@ public class OnEndlessRecyclerScrollListener extends RecyclerView.OnScrollListen
 
   public static class Builder
       implements io.github.ovso.psytest.ui.base.Builder<OnEndlessRecyclerScrollListener> {
-    @Setter @Accessors(chain = true) private LinearLayoutManager linearLayoutManager;
-    @Setter @Accessors(chain = true) private OnLoadMoreListener onLoadMoreListener;
+    @Setter @Accessors(chain = true) private int visibleThreshold = 1;
+    private LinearLayoutManager linearLayoutManager;
+    private OnLoadMoreListener onLoadMoreListener;
+
+    public Builder(LinearLayoutManager $linearLayoutManager,
+        OnLoadMoreListener $onLoadMoreListener) {
+      linearLayoutManager = $linearLayoutManager;
+      onLoadMoreListener = $onLoadMoreListener;
+    }
 
     @Override public OnEndlessRecyclerScrollListener build() {
       return new OnEndlessRecyclerScrollListener(this);

@@ -53,8 +53,9 @@ public class VideoFragment extends BaseFragment implements VideoFragmentPresente
     recyclerView.setAdapter(adapter);
     recyclerView.setOnItemClickListener(this);
     recyclerView.addOnScrollListener(
-        new OnEndlessRecyclerScrollListener.Builder().setOnLoadMoreListener(this)
-            .setLinearLayoutManager((LinearLayoutManager) recyclerView.getLayoutManager())
+        new OnEndlessRecyclerScrollListener
+            .Builder((LinearLayoutManager) recyclerView.getLayoutManager(), this)
+            .setVisibleThreshold(20)
             .build()
     );
   }

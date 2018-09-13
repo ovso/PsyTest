@@ -29,7 +29,6 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
   private VideoFragmentPresenter.View view;
   private SearchRequest searchRequest;
   private ResourceProvider resourceProvider;
-  private String pageToken = null;
   private SchedulersFacade schedulersFacade;
   private VideoAdapterDataModel<SearchItem> adapterDataModel;
   private String nextPageToken;
@@ -50,7 +49,7 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
     view.setupRecyclerView();
     int position = args.getInt(KeyName.POSITION.get());
     q = resourceProvider.getStringArray(R.array.q)[position];
-    Disposable disposable = searchRequest.getResult(q, pageToken)
+    Disposable disposable = searchRequest.getResult(q, nextPageToken)
         .subscribeOn(schedulersFacade.io())
         .observeOn(schedulersFacade.ui())
         .subscribe(
@@ -97,7 +96,7 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
 
   @Override public void onLoadMore() {
     if (!TextUtils.isEmpty(nextPageToken) && !TextUtils.isEmpty(q)) {
-      Disposable disposable = searchRequest.getResult(q, pageToken)
+      Disposable disposable = searchRequest.getResult(q, nextPageToken)
           .subscribeOn(schedulersFacade.io())
           .observeOn(schedulersFacade.ui())
           .subscribe(
