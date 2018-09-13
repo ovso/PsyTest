@@ -17,5 +17,7 @@ public interface MainPresenter {
     void refresh();
 
     void showTitle(String title);
+
+    void showBannerAd();
   }
 }

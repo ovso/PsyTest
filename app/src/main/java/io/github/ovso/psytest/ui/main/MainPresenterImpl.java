@@ -30,6 +30,7 @@ public class MainPresenterImpl implements MainPresenter {
     adapterDataModel.createItems(resourceProvider.getStringArray(R.array.tabs).length);
     view.refresh();
     showTabNames();
+    view.showBannerAd();
   }
 
   private void showTabNames() {
