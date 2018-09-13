@@ -11,6 +11,7 @@ public class App extends DaggerApplication {
 
     AppInitUtils.logger();
     AppInitUtils.crashlytics(this);
+    AppInitUtils.ads(this);
   }
 
   @Override protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
