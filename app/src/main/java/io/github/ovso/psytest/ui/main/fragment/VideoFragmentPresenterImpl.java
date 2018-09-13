@@ -3,6 +3,7 @@ package io.github.ovso.psytest.ui.main.fragment;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import com.google.gson.Gson;
 import io.github.ovso.psytest.R;
 import io.github.ovso.psytest.data.KeyName;
@@ -15,6 +16,7 @@ import io.github.ovso.psytest.utils.SchedulersFacade;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import java.util.List;
+import org.w3c.dom.Text;
 import timber.log.Timber;
 
 import static io.github.ovso.psytest.data.VideoMode.CANCEL;
@@ -31,6 +33,7 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
   private SchedulersFacade schedulersFacade;
   private VideoAdapterDataModel<SearchItem> adapterDataModel;
   private String nextPageToken;
+  private String q;
 
   public VideoFragmentPresenterImpl(VideoFragmentPresenter.View $view,
       SearchRequest $searchRequest, ResourceProvider $resourceProvider,
@@ -46,7 +49,7 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
     Timber.d("onActivityCreated");
     view.setupRecyclerView();
     int position = args.getInt(KeyName.POSITION.get());
-    String q = resourceProvider.getStringArray(R.array.q)[position];
+    q = resourceProvider.getStringArray(R.array.q)[position];
     Disposable disposable = searchRequest.getResult(q, pageToken)
         .subscribeOn(schedulersFacade.io())
         .observeOn(schedulersFacade.ui())
@@ -56,6 +59,7 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
               List<SearchItem> items = search.getItems();
               adapterDataModel.addAll(items);
               view.refresh();
+              view.setLoaded();
             }, throwable -> {
               Timber.d(throwable);
             });
@@ -89,6 +93,25 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
       }
     };
     view.showVideoTypeDialog(onClickListener);
+  }
+
+  @Override public void onLoadMore() {
+    if (!TextUtils.isEmpty(nextPageToken) && !TextUtils.isEmpty(q)) {
+      Disposable disposable = searchRequest.getResult(q, pageToken)
+          .subscribeOn(schedulersFacade.io())
+          .observeOn(schedulersFacade.ui())
+          .subscribe(
+              search -> {
+                nextPageToken = search.getNextPageToken();
+                List<SearchItem> items = search.getItems();
+                adapterDataModel.addAll(items);
+                view.refresh();
+                view.setLoaded();
+              }, throwable -> {
+                Timber.d(throwable);
+              });
+      compositeDisposable.add(disposable);
+    }
   }
 }
 

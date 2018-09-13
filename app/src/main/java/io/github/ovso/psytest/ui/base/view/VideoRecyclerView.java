@@ -5,13 +5,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import io.github.ovso.psytest.ui.base.interfaces.OnEndlessRecyclerScrollListener;
 import io.github.ovso.psytest.ui.base.interfaces.OnRecyclerViewItemClickListener;
 import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapter;
 import io.github.ovso.psytest.utils.ObjectUtils;
+import lombok.Getter;
 
 public class VideoRecyclerView extends RecyclerView {
   private OnRecyclerViewItemClickListener onRecyclerViewItemClickListener;
-
+  @Getter private OnEndlessRecyclerScrollListener onEndlessRecyclerScrollListener;
   public VideoRecyclerView(@NonNull Context context) {
     super(context);
   }
@@ -44,4 +46,8 @@ public class VideoRecyclerView extends RecyclerView {
     }
   }
 
+  @Override public void addOnScrollListener(@NonNull OnScrollListener listener) {
+    super.addOnScrollListener(listener);
+    onEndlessRecyclerScrollListener = (OnEndlessRecyclerScrollListener) listener;
+  }
 }

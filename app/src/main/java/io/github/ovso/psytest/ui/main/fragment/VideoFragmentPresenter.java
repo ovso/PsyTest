@@ -12,6 +12,8 @@ public interface VideoFragmentPresenter {
 
   void onItemClick(SearchItem data);
 
+  void onLoadMore();
+
   interface View {
 
     void setupRecyclerView();
@@ -25,5 +27,7 @@ public interface VideoFragmentPresenter {
     void showLandscapeVideo(String videoId);
 
     void showYoutubeUseWarningDialog();
+
+    void setLoaded();
   }
 }

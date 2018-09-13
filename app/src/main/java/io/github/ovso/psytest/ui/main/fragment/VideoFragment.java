@@ -10,6 +10,7 @@ import android.view.View;
 import butterknife.BindView;
 import io.github.ovso.psytest.R;
 import io.github.ovso.psytest.data.network.model.SearchItem;
+import io.github.ovso.psytest.ui.base.interfaces.OnEndlessRecyclerScrollListener;
 import io.github.ovso.psytest.ui.base.interfaces.OnRecyclerViewItemClickListener;
 import io.github.ovso.psytest.ui.base.view.BaseFragment;
 import io.github.ovso.psytest.ui.base.view.VideoRecyclerView;
@@ -20,7 +21,8 @@ import io.github.ovso.psytest.ui.video.PortraitVideoActivity;
 import javax.inject.Inject;
 
 public class VideoFragment extends BaseFragment implements VideoFragmentPresenter.View,
-    OnRecyclerViewItemClickListener<SearchItem> {
+    OnRecyclerViewItemClickListener<SearchItem>,
+    OnEndlessRecyclerScrollListener.OnLoadMoreListener {
 
   @BindView(R.id.recycler_view) VideoRecyclerView recyclerView;
   @Inject VideoFragmentPresenter presenter;
@@ -50,6 +52,11 @@ public class VideoFragment extends BaseFragment implements VideoFragmentPresente
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerView.setAdapter(adapter);
     recyclerView.setOnItemClickListener(this);
+    recyclerView.addOnScrollListener(
+        new OnEndlessRecyclerScrollListener.Builder().setOnLoadMoreListener(this)
+            .setLinearLayoutManager((LinearLayoutManager) recyclerView.getLayoutManager())
+            .build()
+    );
   }
 
   @Override public void refresh() {
@@ -83,7 +90,15 @@ public class VideoFragment extends BaseFragment implements VideoFragmentPresente
         .show();
   }
 
+  @Override public void setLoaded() {
+    recyclerView.getOnEndlessRecyclerScrollListener().setLoaded();
+  }
+
   @Override public void onItemClick(View view, SearchItem data, int itemPosition) {
     presenter.onItemClick(data);
+  }
+
+  @Override public void onLoadMore() {
+    presenter.onLoadMore();
   }
 }

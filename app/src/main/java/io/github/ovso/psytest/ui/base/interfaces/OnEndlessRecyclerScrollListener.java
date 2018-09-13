@@ -2,37 +2,33 @@ package io.github.ovso.psytest.ui.base.interfaces;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 public class OnEndlessRecyclerScrollListener extends RecyclerView.OnScrollListener {
-  public static String TAG = "OnEndlessRecyclerScrollListener";
 
   private int visibleThreshold = 1;
   private int lastVisibleItem, totalItemCount;
   private boolean loading;
+  private LinearLayoutManager linearLayoutManager;
+  private OnLoadMoreListener onLoadMoreListener;
 
-  private LinearLayoutManager mLayoutManager;
+  OnEndlessRecyclerScrollListener(OnEndlessRecyclerScrollListener.Builder builder) {
+    linearLayoutManager = builder.linearLayoutManager;
+    onLoadMoreListener = builder.onLoadMoreListener;
+  }
 
   @Override public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
     super.onScrolled(recyclerView, dx, dy);
 
-    totalItemCount = mLayoutManager.getItemCount();
-    lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
+    totalItemCount = linearLayoutManager.getItemCount();
+    lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
     if (!loading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
       loading = true;
-      if (mOnLoadMoreListener != null) {
-        mOnLoadMoreListener.onLoadMore();
+      if (onLoadMoreListener != null) {
+        onLoadMoreListener.onLoadMore();
       }
     }
-  }
-
-  public void setLayoutManager(RecyclerView.LayoutManager layout) {
-    this.mLayoutManager = (LinearLayoutManager) layout;
-  }
-
-  private OnLoadMoreListener mOnLoadMoreListener;
-
-  public void setOnLoadMoreListener(OnLoadMoreListener listener) {
-    mOnLoadMoreListener = listener;
   }
 
   public void setLoaded() {
@@ -41,5 +37,15 @@ public class OnEndlessRecyclerScrollListener extends RecyclerView.OnScrollListen
 
   public interface OnLoadMoreListener {
     void onLoadMore();
+  }
+
+  public static class Builder
+      implements io.github.ovso.psytest.ui.base.Builder<OnEndlessRecyclerScrollListener> {
+    @Setter @Accessors(chain = true) private LinearLayoutManager linearLayoutManager;
+    @Setter @Accessors(chain = true) private OnLoadMoreListener onLoadMoreListener;
+
+    @Override public OnEndlessRecyclerScrollListener build() {
+      return new OnEndlessRecyclerScrollListener(this);
+    }
   }
 }
