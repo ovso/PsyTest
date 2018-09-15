@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import butterknife.BindView;
@@ -24,6 +25,7 @@ public class VideoFragment extends BaseFragment implements VideoFragmentPresente
     OnRecyclerViewItemClickListener<SearchItem>,
     OnEndlessRecyclerScrollListener.OnLoadMoreListener {
 
+  @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
   @BindView(R.id.recycler_view) VideoRecyclerView recyclerView;
   @Inject VideoFragmentPresenter presenter;
   @Inject VideoAdapter adapter;
@@ -93,6 +95,14 @@ public class VideoFragment extends BaseFragment implements VideoFragmentPresente
 
   @Override public void setLoaded() {
     recyclerView.getOnEndlessRecyclerScrollListener().setLoaded();
+  }
+
+  @Override public void setupSwipeRefresh() {
+    swipeRefreshLayout.setOnRefreshListener(() -> presenter.onRefresh());
+  }
+
+  @Override public void hideRefresh() {
+    swipeRefreshLayout.setRefreshing(false);
   }
 
   @Override public void onItemClick(View view, SearchItem data, int itemPosition) {

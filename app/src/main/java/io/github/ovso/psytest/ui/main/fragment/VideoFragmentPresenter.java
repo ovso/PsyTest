@@ -14,6 +14,8 @@ public interface VideoFragmentPresenter {
 
   void onLoadMore();
 
+  void onRefresh();
+
   interface View {
 
     void setupRecyclerView();
@@ -29,5 +31,9 @@ public interface VideoFragmentPresenter {
     void showYoutubeUseWarningDialog();
 
     void setLoaded();
+
+    void setupSwipeRefresh();
+
+    void hideRefresh();
   }
 }

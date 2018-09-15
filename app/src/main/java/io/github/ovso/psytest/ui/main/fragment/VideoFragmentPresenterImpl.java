@@ -4,7 +4,6 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
-import com.google.gson.Gson;
 import io.github.ovso.psytest.R;
 import io.github.ovso.psytest.data.KeyName;
 import io.github.ovso.psytest.data.VideoMode;
@@ -16,12 +15,7 @@ import io.github.ovso.psytest.utils.SchedulersFacade;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import java.util.List;
-import org.w3c.dom.Text;
 import timber.log.Timber;
-
-import static io.github.ovso.psytest.data.VideoMode.CANCEL;
-import static io.github.ovso.psytest.data.VideoMode.LANDSCAPE;
-import static io.github.ovso.psytest.data.VideoMode.PORTRAIT;
 
 public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
 
@@ -33,6 +27,7 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
   private VideoAdapterDataModel<SearchItem> adapterDataModel;
   private String nextPageToken;
   private String q;
+  private int position;
 
   public VideoFragmentPresenterImpl(VideoFragmentPresenter.View $view,
       SearchRequest $searchRequest, ResourceProvider $resourceProvider,
@@ -47,7 +42,8 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
   @Override public void onActivityCreated(Bundle args) {
     Timber.d("onActivityCreated");
     view.setupRecyclerView();
-    int position = args.getInt(KeyName.POSITION.get());
+    view.setupSwipeRefresh();
+    position = args.getInt(KeyName.POSITION.get());
     q = resourceProvider.getStringArray(R.array.q)[position];
     Disposable disposable = searchRequest.getResult(q, nextPageToken)
         .subscribeOn(schedulersFacade.io())
@@ -111,6 +107,28 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
               });
       compositeDisposable.add(disposable);
     }
+  }
+
+  @Override public void onRefresh() {
+    adapterDataModel.clear();
+    view.refresh();
+    nextPageToken = null;
+    q = resourceProvider.getStringArray(R.array.q)[position];
+    Disposable disposable = searchRequest.getResult(q, nextPageToken)
+        .subscribeOn(schedulersFacade.io())
+        .observeOn(schedulersFacade.ui())
+        .subscribe(
+            search -> {
+              nextPageToken = search.getNextPageToken();
+              List<SearchItem> items = search.getItems();
+              adapterDataModel.addAll(items);
+              view.refresh();
+              view.setLoaded();
+              view.hideRefresh();
+            }, throwable -> {
+              Timber.d(throwable);
+            });
+    compositeDisposable.add(disposable);
   }
 }
 
