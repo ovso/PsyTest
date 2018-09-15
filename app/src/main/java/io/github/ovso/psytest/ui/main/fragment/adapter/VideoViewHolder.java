@@ -1,11 +1,11 @@
 package io.github.ovso.psytest.ui.main.fragment.adapter;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -17,7 +17,7 @@ import lombok.Setter;
 
 public class VideoViewHolder extends RecyclerView.ViewHolder implements Bindable<SearchItem> {
   private SearchItem data;
-  @BindView(R.id.thumbnail_image_view) ImageView thumbnailImageView;
+  @BindView(R.id.thumbnail_image_view) AppCompatImageView thumbnailImageView;
   @Setter private OnRecyclerViewItemClickListener onRecyclerViewItemClickListener;
 
   private VideoViewHolder(@NonNull View itemView) {
@@ -37,7 +37,7 @@ public class VideoViewHolder extends RecyclerView.ViewHolder implements Bindable
         .into(thumbnailImageView);
   }
 
-  @OnClick(R.id.root_view) void onClick(View view) {
+  @OnClick(R.id.play_button) void onClick(View view) {
     onRecyclerViewItemClickListener.onItemClick(view, data, 0);
   }
 }
