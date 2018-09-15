@@ -26,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabMode="scrollable"
+        app:tabTextAppearance="@style/TextAppearance.AppCompat.Subhead"
         >
     </android.support.design.widget.TabLayout>
   </android.support.design.widget.AppBarLayout>
