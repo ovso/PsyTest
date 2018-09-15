@@ -14,6 +14,7 @@ import io.github.ovso.psytest.utils.ResourceProvider;
 import io.github.ovso.psytest.utils.SchedulersFacade;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import java.util.Collections;
 import java.util.List;
 import timber.log.Timber;
 
@@ -52,6 +53,7 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
             search -> {
               nextPageToken = search.getNextPageToken();
               List<SearchItem> items = search.getItems();
+              shuffle(items);
               adapterDataModel.addAll(items);
               view.refresh();
               view.setLoaded();
@@ -99,6 +101,7 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
               search -> {
                 nextPageToken = search.getNextPageToken();
                 List<SearchItem> items = search.getItems();
+                shuffle(items);
                 adapterDataModel.addAll(items);
                 view.refresh();
                 view.setLoaded();
@@ -121,6 +124,7 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
             search -> {
               nextPageToken = search.getNextPageToken();
               List<SearchItem> items = search.getItems();
+              shuffle(items);
               adapterDataModel.addAll(items);
               view.refresh();
               view.setLoaded();
@@ -130,5 +134,8 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
             });
     compositeDisposable.add(disposable);
   }
-}
 
+  private <E> void shuffle(List<E> $items) {
+    Collections.shuffle($items);
+  }
+}
