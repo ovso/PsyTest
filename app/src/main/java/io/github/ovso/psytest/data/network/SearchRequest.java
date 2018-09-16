@@ -39,7 +39,7 @@ public class SearchRequest extends BaseRequest<SearchService> {
     queryMap.put(KeyName.MAX_RESULTS.get(), 50);
     queryMap.put(KeyName.ORDER.get(), "viewCount");
     queryMap.put(KeyName.TYPE.get(), "video");
-    queryMap.put(KeyName.VIDEO_SYNDICATED.get(), true);
+    queryMap.put(KeyName.VIDEO_SYNDICATED.get(), "any");
     queryMap.put(KeyName.KEY.get(), Security.KEY.getValue());
     queryMap.put(KeyName.PART.get(), "snippet");
     if (!TextUtils.isEmpty(pageToken)) {

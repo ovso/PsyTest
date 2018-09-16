@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string-array name="tabs">
-    <item>전체</item>
-    <item>연애</item>
-    <item>성격</item>
-    <item>혈액형</item>
-    <item>사랑</item>
-    <item>직업</item>
-    <item>그림</item>
-    <item>결혼</item>
-    <item>동물</item>
-    <item>색깔</item>
-    <item>전생</item>
-    <item>게임</item>
+    <item>Total</item>
+    <item>Romantic</item>
+    <item>Personality</item>
+    <item>Blood group</item>
+    <item>Love</item>
+    <item>Job</item>
+    <item>Image</item>
+    <item>Marriage</item>
+    <item>Animal</item>
+    <item>Color</item>
+    <item>A former life</item>
+    <item>Game</item>
   </string-array>
   <string-array name="q">
-    <item>심리테스트</item>
-    <item>심리테스트 연애</item>
-    <item>심리테스트 성격</item>
-    <item>혈액형별 심리테스트</item>
-    <item>심리테스트 사랑</item>
-    <item>심리테스트 직업</item>
-    <item>심리테스트 그림</item>
-    <item>심리테스트 결혼</item>
-    <item>심리테스트 동물</item>
-    <item>심리테스트 색깔</item>
-    <item>심리테스트 전생</item>
-    <item>심리테스트 게임</item>
+    <item>Psycology test</item>
+    <item>romantic psychology test</item>
+    <item>Personality psychology test</item>
+    <item>blood group psychology test</item>
+    <item>love psychology test</item>
+    <item>job psychology test</item>
+    <item>psychology test images</item>
+    <item>psychology test marriage</item>
+    <item>psychology animal</item>
+    <item>psychology test color</item>
+    <item>psychology test a former life</item>
+    <item>Psychology test game</item>
   </string-array>
 </resources>
