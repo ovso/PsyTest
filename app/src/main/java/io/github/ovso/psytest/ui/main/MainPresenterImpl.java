@@ -20,6 +20,7 @@ public class MainPresenterImpl implements MainPresenter {
     resourceProvider = $ResourceProvider;
     schedulers = $schedulers;
     adapterDataModel = $adapterDataModel;
+    $view.changeTheme();
   }
 
   @Override public void onCreate() {

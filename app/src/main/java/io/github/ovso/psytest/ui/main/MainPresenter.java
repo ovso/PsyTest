@@ -19,5 +19,7 @@ public interface MainPresenter {
     void showTitle(String title);
 
     void showBannerAd();
+
+    void changeTheme();
   }
 }
