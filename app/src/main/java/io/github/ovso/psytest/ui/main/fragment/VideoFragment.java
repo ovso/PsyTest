@@ -101,8 +101,12 @@ public class VideoFragment extends BaseFragment implements VideoFragmentPresente
     swipeRefreshLayout.setOnRefreshListener(() -> presenter.onRefresh());
   }
 
-  @Override public void hideRefresh() {
+  @Override public void hideLoading() {
     swipeRefreshLayout.setRefreshing(false);
+  }
+
+  @Override public void showLoading() {
+    swipeRefreshLayout.setRefreshing(true);
   }
 
   @Override public void onItemClick(View view, SearchItem data, int itemPosition) {

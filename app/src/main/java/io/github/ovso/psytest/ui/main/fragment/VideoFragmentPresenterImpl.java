@@ -44,6 +44,7 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
     Timber.d("onActivityCreated");
     view.setupRecyclerView();
     view.setupSwipeRefresh();
+    view.showLoading();
     position = args.getInt(KeyName.POSITION.get());
     q = resourceProvider.getStringArray(R.array.q)[position];
     Disposable disposable = searchRequest.getResult(q, nextPageToken)
@@ -57,8 +58,10 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
               adapterDataModel.addAll(items);
               view.refresh();
               view.setLoaded();
+              view.hideLoading();
             }, throwable -> {
               Timber.d(throwable);
+              view.hideLoading();
             });
     compositeDisposable.add(disposable);
   }
@@ -128,9 +131,10 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
               adapterDataModel.addAll(items);
               view.refresh();
               view.setLoaded();
-              view.hideRefresh();
+              view.hideLoading();
             }, throwable -> {
               Timber.d(throwable);
+              view.hideLoading();
             });
     compositeDisposable.add(disposable);
   }

@@ -34,6 +34,8 @@ public interface VideoFragmentPresenter {
 
     void setupSwipeRefresh();
 
-    void hideRefresh();
+    void hideLoading();
+
+    void showLoading();
   }
 }
