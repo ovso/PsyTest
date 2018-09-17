@@ -2,25 +2,68 @@ apply plugin: 'com.android.application'
 apply plugin: 'hugo'
 apply plugin: 'io.fabric'
 
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
-
   compileSdkVersion compile_sdk_version
-
   defaultConfig {
     applicationId rootProject.application_id
     minSdkVersion rootProject.min_sdk_version
     targetSdkVersion target_sdk_version
     versionCode rootProject.version_code
-    versionName rootProject.version_name
+
+    int versionMajor = 0
+    int versionMinor = 0
+    int versionPatch = rootProject.version_code
+
+    if (1000 > versionPatch && versionPatch > 99) {
+      versionMajor = versionPatch / 100
+      versionMinor = (versionPatch % 100) / 10
+      versionPatch = (versionPatch % 100) % 10
+    } else if (100 > versionCode && versionPatch > 9) {
+      versionMajor = 0
+      versionMinor = versionPatch / 10
+      versionPatch = versionPatch % 10
+    } else if (versionPatch < 10) {
+      versionMajor = 0
+      versionMinor = 0
+      versionPatch = versionPatch / 1
+    }
+
+    versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+
     multiDexEnabled true
     vectorDrawables.useSupportLibrary = true
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
 
+  signingConfigs {
+    release {
+      keyAlias keystoreProperties['keyAlias']
+      keyPassword keystoreProperties['keyPassword']
+      storeFile file(keystoreProperties['storeFile'])
+      storePassword keystoreProperties['storePassword']
+    }
+  }
+
   buildTypes {
     release {
+      signingConfig signingConfigs.release
       minifyEnabled false
+
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+      android.applicationVariants.all { variant ->
+        variant.outputs.all {
+          def formattedDate = new Date().format('yyyyMMddHHmmss')
+          def appName = variant.getApplicationId().split(/[.]/)[3]
+          outputFileName =
+              "${appName}-${variant.name}-${variant.versionCode}-${variant.versionName}-${formattedDate}.apk"
+        }
+      }
+
     }
   }
 
