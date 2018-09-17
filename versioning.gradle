@@ -3,7 +3,7 @@ ext {
   application_id = 'io.github.ovso.psytest'
   min_sdk_version = 21
   target_sdk_version = 28
-  version_code = 2
+  version_code = 3
 
   //support_version = '27.1.1'
   support_version = '28.0.0-rc01'
