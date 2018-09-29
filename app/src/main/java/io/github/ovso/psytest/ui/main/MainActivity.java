@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import butterknife.BindView;
 import io.github.ovso.psytest.R;
-import io.github.ovso.psytest.ui.base.interfaces.SimpleOnTabSelectedListener;
 import io.github.ovso.psytest.ui.base.view.BaseActivity;
 import io.github.ovso.psytest.ui.base.view.MyAdView;
 import io.github.ovso.psytest.ui.main.adapter.MainAdapterView;
@@ -52,14 +51,7 @@ public class MainActivity extends BaseActivity
   @Override public void setupTabLayout() {
     tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
     tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-    tabLayout.addOnTabSelectedListener(onTabSelectedListener);
   }
-
-  SimpleOnTabSelectedListener onTabSelectedListener = new SimpleOnTabSelectedListener() {
-    @Override public void onTabSelected(TabLayout.Tab tab) {
-      presenter.onTabSelected(tab.getPosition());
-    }
-  };
 
   @Override public boolean isTitle() {
     return true;
@@ -90,12 +82,6 @@ public class MainActivity extends BaseActivity
 
   @Override public void changeTheme() {
     setTheme(R.style.AppTheme_NoActionBar);
-  }
-
-  @Override public void showInterstitalAd() {
-    if (interstitialAd.isLoaded()) {
-      interstitialAd.show();
-    }
   }
 
   @Override

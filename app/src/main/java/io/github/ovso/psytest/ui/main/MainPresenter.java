@@ -4,8 +4,6 @@ public interface MainPresenter {
 
   void onCreate();
 
-  void onTabSelected(int position);
-
   interface View {
     void setupView();
 
@@ -22,7 +20,5 @@ public interface MainPresenter {
     void showBannerAd();
 
     void changeTheme();
-
-    void showInterstitalAd();
   }
 }

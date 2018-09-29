@@ -45,6 +45,7 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
     view.setupRecyclerView();
     view.setupSwipeRefresh();
     view.showLoading();
+    view.setupAdListener();
     position = args.getInt(KeyName.POSITION.get());
     q = resourceProvider.getStringArray(R.array.q)[position];
     Disposable disposable = searchRequest.getResult(q, nextPageToken)

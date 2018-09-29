@@ -19,7 +19,7 @@ public final class AppInitUtils {
   }
 
   public static void crashlytics(Context context) {
-    CrashlyticsCore core = new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build();
+    CrashlyticsCore core = new CrashlyticsCore.Builder().disabled(!BuildConfig.DEBUG).build();
     Fabric.with(context, new Crashlytics.Builder().core(core).build());
   }
 

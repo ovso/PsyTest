@@ -3,7 +3,6 @@ package io.github.ovso.psytest.ui.main;
 import io.github.ovso.psytest.R;
 import io.github.ovso.psytest.ui.main.adapter.MainAdapterDataModel;
 import io.github.ovso.psytest.utils.ResourceProvider;
-import timber.log.Timber;
 
 public class MainPresenterImpl implements MainPresenter {
 
@@ -28,10 +27,6 @@ public class MainPresenterImpl implements MainPresenter {
     view.refresh();
     showTabNames();
     view.showBannerAd();
-  }
-
-  @Override public void onTabSelected(int position) {
-    //view.showInterstitalAd();
   }
 
   private void showTabNames() {
