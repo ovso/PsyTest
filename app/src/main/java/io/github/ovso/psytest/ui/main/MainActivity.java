@@ -18,17 +18,17 @@ import io.github.ovso.psytest.ui.base.view.MyAdView;
 import io.github.ovso.psytest.ui.main.adapter.MainAdapterView;
 import io.github.ovso.psytest.ui.main.adapter.MainPagerAdapter;
 import javax.inject.Inject;
-import timber.log.Timber;
 
 public class MainActivity extends BaseActivity
     implements NavigationView.OnNavigationItemSelectedListener, MainPresenter.View {
 
-  @Inject MainPresenter presenter;
-  @Inject MainPagerAdapter pagerAdapter;
-  @Inject MainAdapterView adapterView;
   @BindView(R.id.tab_layout) TabLayout tabLayout;
   @BindView(R.id.view_pager) ViewPager viewPager;
   @BindView(R.id.ad_container) ViewGroup adContainer;
+
+  @Inject MainPresenter presenter;
+  @Inject MainPagerAdapter pagerAdapter;
+  @Inject MainAdapterView adapterView;
 
   @Override protected int getLayoutResID() {
     return R.layout.activity_main;
@@ -57,7 +57,7 @@ public class MainActivity extends BaseActivity
 
   SimpleOnTabSelectedListener onTabSelectedListener = new SimpleOnTabSelectedListener() {
     @Override public void onTabSelected(TabLayout.Tab tab) {
-      Timber.d("onTabSelected = " + tab.getPosition());
+      presenter.onTabSelected(tab.getPosition());
     }
   };
 
@@ -90,6 +90,12 @@ public class MainActivity extends BaseActivity
 
   @Override public void changeTheme() {
     setTheme(R.style.AppTheme_NoActionBar);
+  }
+
+  @Override public void showInterstitalAd() {
+    if (interstitialAd.isLoaded()) {
+      interstitialAd.show();
+    }
   }
 
   @Override

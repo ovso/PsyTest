@@ -9,15 +9,13 @@ import io.github.ovso.psytest.ui.main.adapter.MainAdapterDataModel;
 import io.github.ovso.psytest.ui.main.adapter.MainAdapterView;
 import io.github.ovso.psytest.ui.main.adapter.MainPagerAdapter;
 import io.github.ovso.psytest.utils.ResourceProvider;
-import io.github.ovso.psytest.utils.SchedulersFacade;
 import javax.inject.Singleton;
 
 @Module public class MainActivityModule {
 
   @Singleton @Provides MainPresenter provideMainPresenter(MainPresenter.View view,
-      ResourceProvider resourceProvider, SchedulersFacade schedulersFacade,
-      MainAdapterDataModel adapterDataModel) {
-    return new MainPresenterImpl(view, resourceProvider, schedulersFacade, adapterDataModel);
+      ResourceProvider resourceProvider, MainAdapterDataModel adapterDataModel) {
+    return new MainPresenterImpl(view, resourceProvider, adapterDataModel);
   }
 
   @Singleton @Provides MainPagerAdapter provideMainPagerAdapter(MainActivity activity) {

@@ -19,9 +19,9 @@ public class MyAdView {
   }
 
   public static InterstitialAd getAdmobInterstitialAd(Context context) {
-    InterstitialAd interstitialAd = new InterstitialAd(context);
+    final InterstitialAd interstitialAd = new InterstitialAd(context);
     interstitialAd.setAdUnitId(Security.ADMOB_INTERSTITIAL_UNIT_ID.getValue());
-    AdRequest.Builder adRequestBuilder = new AdRequest.Builder();
+    final AdRequest.Builder adRequestBuilder = new AdRequest.Builder();
     interstitialAd.loadAd(adRequestBuilder.build());
     return interstitialAd;
   }
