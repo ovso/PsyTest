@@ -14,6 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class BaseRequest<T> {
   public final static int TIMEOUT_SECONDS = 7;
+
   public T getApi() {
     return createRetrofit().create(getApiClass());
   }
@@ -53,9 +54,15 @@ public abstract class BaseRequest<T> {
     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
     interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-    httpClient.addInterceptor(interceptor);
+    if (isInterceptor()) {
+      httpClient.addInterceptor(interceptor);
+    }
+
     OkHttpClient client = httpClient.build();
     return client;
   }
 
+  protected boolean isInterceptor() {
+    return false;
+  }
 }

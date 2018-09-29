@@ -18,6 +18,7 @@ import io.github.ovso.psytest.ui.base.view.MyAdView;
 import io.github.ovso.psytest.ui.main.adapter.MainAdapterView;
 import io.github.ovso.psytest.ui.main.adapter.MainPagerAdapter;
 import javax.inject.Inject;
+import timber.log.Timber;
 
 public class MainActivity extends BaseActivity
     implements NavigationView.OnNavigationItemSelectedListener, MainPresenter.View {
@@ -56,7 +57,7 @@ public class MainActivity extends BaseActivity
 
   SimpleOnTabSelectedListener onTabSelectedListener = new SimpleOnTabSelectedListener() {
     @Override public void onTabSelected(TabLayout.Tab tab) {
-
+      Timber.d("onTabSelected = " + tab.getPosition());
     }
   };
 
