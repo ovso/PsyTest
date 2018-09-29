@@ -1,9 +1,11 @@
 package io.github.ovso.psytest.ui.main.adapter;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
 import io.github.ovso.psytest.data.KeyName;
 import io.github.ovso.psytest.ui.main.fragment.VideoFragment;
 import java.util.ArrayList;
@@ -39,5 +41,10 @@ public class MainPagerAdapter extends FragmentPagerAdapter
 
   @Override public int getSize() {
     return items.size();
+  }
+
+  @Override
+  public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+    //super.destroyItem(container, position, object);
   }
 }
