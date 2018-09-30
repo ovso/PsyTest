@@ -8,10 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.InterstitialAd;
 import dagger.android.support.DaggerFragment;
 
 public abstract class BaseFragment extends DaggerFragment {
   private Unbinder unbinder;
+  protected InterstitialAd interstitialAd;
 
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -27,6 +30,7 @@ public abstract class BaseFragment extends DaggerFragment {
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     unbinder = ButterKnife.bind(this, view);
+    interstitialAd = MyAdView.getAdmobInterstitialAd(getContext());
   }
 
   @Override public void onDestroyView() {

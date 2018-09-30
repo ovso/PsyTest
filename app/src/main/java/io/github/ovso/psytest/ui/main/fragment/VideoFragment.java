@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import butterknife.BindView;
+import com.google.android.gms.ads.AdListener;
 import io.github.ovso.psytest.R;
 import io.github.ovso.psytest.data.network.model.SearchItem;
 import io.github.ovso.psytest.ui.base.interfaces.OnEndlessRecyclerScrollListener;
@@ -98,7 +99,13 @@ public class VideoFragment extends BaseFragment implements VideoFragmentPresente
   }
 
   @Override public void setupSwipeRefresh() {
-    swipeRefreshLayout.setOnRefreshListener(() -> presenter.onRefresh());
+    swipeRefreshLayout.setOnRefreshListener(() -> {
+      if (interstitialAd.isLoaded()) {
+        interstitialAd.show();
+      } else {
+        presenter.onRefresh();
+      }
+    });
   }
 
   @Override public void hideLoading() {
@@ -107,6 +114,15 @@ public class VideoFragment extends BaseFragment implements VideoFragmentPresente
 
   @Override public void showLoading() {
     swipeRefreshLayout.setRefreshing(true);
+  }
+
+  @Override public void setupAdListener() {
+    interstitialAd.setAdListener(new AdListener() {
+      @Override public void onAdClosed() {
+        super.onAdClosed();
+        presenter.onRefresh();
+      }
+    });
   }
 
   @Override public void onItemClick(View view, SearchItem data, int itemPosition) {

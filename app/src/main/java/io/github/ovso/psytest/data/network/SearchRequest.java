@@ -21,7 +21,6 @@ public class SearchRequest extends BaseRequest<SearchService> {
   }
 
   @Override protected Headers createHeaders() {
-
     return new Headers.Builder().build();
   }
 

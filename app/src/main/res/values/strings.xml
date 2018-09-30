@@ -10,6 +10,6 @@
   <string name="please_select_the_player_mode">Please select the player mode</string>
   <string name="portrait_mode">Portrait mode</string>
   <string name="landscape_mode">Landscape mode</string>
-  <string name="youtube_use_warning">YouTube app must be installed. or, the setting must be set to 'Enable'</string>
+  <string name="youtube_use_warning">YouTube app must be installed. or, the setting must be set to Enable</string>
   <string name="no_videos_found">Video not found</string>
 </resources>

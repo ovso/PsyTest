@@ -8,12 +8,10 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import butterknife.BindView;
 import io.github.ovso.psytest.R;
-import io.github.ovso.psytest.ui.base.interfaces.SimpleOnTabSelectedListener;
 import io.github.ovso.psytest.ui.base.view.BaseActivity;
 import io.github.ovso.psytest.ui.base.view.MyAdView;
 import io.github.ovso.psytest.ui.main.adapter.MainAdapterView;
@@ -23,12 +21,13 @@ import javax.inject.Inject;
 public class MainActivity extends BaseActivity
     implements NavigationView.OnNavigationItemSelectedListener, MainPresenter.View {
 
-  @Inject MainPresenter presenter;
-  @Inject MainPagerAdapter pagerAdapter;
-  @Inject MainAdapterView adapterView;
   @BindView(R.id.tab_layout) TabLayout tabLayout;
   @BindView(R.id.view_pager) ViewPager viewPager;
   @BindView(R.id.ad_container) ViewGroup adContainer;
+
+  @Inject MainPresenter presenter;
+  @Inject MainPagerAdapter pagerAdapter;
+  @Inject MainAdapterView adapterView;
 
   @Override protected int getLayoutResID() {
     return R.layout.activity_main;
@@ -52,14 +51,7 @@ public class MainActivity extends BaseActivity
   @Override public void setupTabLayout() {
     tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
     tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-    tabLayout.addOnTabSelectedListener(onTabSelectedListener);
   }
-
-  SimpleOnTabSelectedListener onTabSelectedListener = new SimpleOnTabSelectedListener() {
-    @Override public void onTabSelected(TabLayout.Tab tab) {
-
-    }
-  };
 
   @Override public boolean isTitle() {
     return true;

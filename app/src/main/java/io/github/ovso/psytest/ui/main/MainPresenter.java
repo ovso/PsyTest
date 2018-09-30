@@ -5,7 +5,6 @@ public interface MainPresenter {
   void onCreate();
 
   interface View {
-
     void setupView();
 
     void setupTabLayout();
