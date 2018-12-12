@@ -1,12 +1,10 @@
 package io.github.ovso.psytest.ui.main.fragment;
 
 import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import io.github.ovso.psytest.R;
 import io.github.ovso.psytest.data.KeyName;
-import io.github.ovso.psytest.data.VideoMode;
 import io.github.ovso.psytest.data.network.SearchRequest;
 import io.github.ovso.psytest.data.network.model.SearchItem;
 import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapterDataModel;
@@ -72,28 +70,12 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
   }
 
   @Override public void onItemClick(SearchItem data) {
-    final DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
-      dialog.dismiss();
-
-      try {
-        dialog.dismiss();
-        String videoId = data.getId().getVideoId();
-        switch (VideoMode.toMode(which)) {
-          case PORTRAIT:
-            view.showPortraitVideo(videoId);
-            break;
-          case LANDSCAPE:
-            view.showLandscapeVideo(videoId);
-            break;
-          case CANCEL:
-            break;
-        }
-      } catch (ActivityNotFoundException e) {
-        e.printStackTrace();
-        view.showYoutubeUseWarningDialog();
-      }
-    };
-    view.showVideoTypeDialog(onClickListener);
+    try {
+      view.showPortraitVideo(data.getId().getVideoId());
+    } catch (ActivityNotFoundException e) {
+      e.printStackTrace();
+      view.showYoutubeUseWarningDialog();
+    }
   }
 
   @Override public void onLoadMore() {
@@ -109,9 +91,7 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
                 adapterDataModel.addAll(items);
                 view.refresh();
                 view.setLoaded();
-              }, throwable -> {
-                Timber.d(throwable);
-              });
+              }, Timber::d);
       compositeDisposable.add(disposable);
     }
   }
