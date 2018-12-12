@@ -6,7 +6,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 import butterknife.BindView;
 import com.google.android.gms.ads.AdListener;
 import io.github.ovso.psytest.R;
@@ -114,5 +118,15 @@ public class VideoFragment extends BaseFragment implements VideoFragmentPresente
 
   @Override public void onLoadMore() {
     presenter.onLoadMore();
+  }
+
+  @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    inflater.inflate(R.menu.menu_main, menu);
+    super.onCreateOptionsMenu(menu, inflater);
+  }
+
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    Toast.makeText(getContext(), "onOptionsMenu", Toast.LENGTH_SHORT).show();
+    return super.onOptionsItemSelected(item);
   }
 }
