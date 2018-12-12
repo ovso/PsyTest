@@ -71,7 +71,7 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
 
   @Override public void onItemClick(SearchItem data) {
     try {
-      view.showPortraitVideo(data.getId().getVideoId());
+      view.showVideo(data.getId().getVideoId());
     } catch (ActivityNotFoundException e) {
       e.printStackTrace();
       view.showYoutubeUseWarningDialog();

@@ -1,7 +1,6 @@
 package io.github.ovso.psytest.ui.main.fragment;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,8 +17,7 @@ import io.github.ovso.psytest.ui.base.view.BaseFragment;
 import io.github.ovso.psytest.ui.base.view.VideoRecyclerView;
 import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapter;
 import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapterView;
-import io.github.ovso.psytest.ui.video.LandscapeVideoActivity;
-import io.github.ovso.psytest.ui.video.PortraitVideoActivity;
+import io.github.ovso.psytest.ui.video.VideoActivity;
 import javax.inject.Inject;
 
 public class VideoFragment extends BaseFragment implements VideoFragmentPresenter.View,
@@ -67,23 +65,8 @@ public class VideoFragment extends BaseFragment implements VideoFragmentPresente
     adapterView.refresh();
   }
 
-  @Override public void showVideoTypeDialog(DialogInterface.OnClickListener onClickListener) {
-    new AlertDialog.Builder(getContext()).setMessage(R.string.please_select_the_player_mode)
-        .setPositiveButton(R.string.portrait_mode,
-            onClickListener)
-        .setNeutralButton(R.string.landscape_mode, onClickListener)
-        .setNegativeButton(android.R.string.cancel, onClickListener)
-        .show();
-  }
-
-  @Override public void showPortraitVideo(String videoId) {
-    Intent intent = new Intent(getContext(), PortraitVideoActivity.class);
-    intent.putExtra("video_id", videoId);
-    startActivity(intent);
-  }
-
-  @Override public void showLandscapeVideo(String videoId) {
-    Intent intent = new Intent(getContext(), LandscapeVideoActivity.class);
+  @Override public void showVideo(String videoId) {
+    Intent intent = new Intent(getContext(), VideoActivity.class);
     intent.putExtra("video_id", videoId);
     startActivity(intent);
   }
