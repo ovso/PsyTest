@@ -4,6 +4,7 @@
     package="io.github.ovso.psytest">
 
   <uses-permission android:name="android.permission.INTERNET"/>
+
   <application
       android:name=".App"
       android:allowBackup="true"
@@ -14,7 +15,6 @@
       android:supportsRtl="true"
       android:theme="@style/AppTheme"
       tools:ignore="GoogleAppIndexingWarning">
-
     <meta-data
         android:name="com.google.android.gms.ads.AD_MANAGER_APP"
         android:value="true"/>
@@ -36,7 +36,11 @@
         android:screenOrientation="sensorPortrait"
         android:theme="@android:style/Theme.Black.NoTitleBar">
     </activity>
-
+    <activity
+        android:name=".ui.web.WebActivity"
+        android:label="@string/title_activity_web"
+        android:theme="@style/AppTheme.NoActionBar">
+    </activity>
   </application>
 
 </manifest>
