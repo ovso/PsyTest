@@ -22,13 +22,11 @@ public abstract class BaseActivity extends DaggerAppCompatActivity {
     bind = ButterKnife.bind(this);
     setSupportActionBar(toolbar);
     getSupportActionBar().setDisplayShowTitleEnabled(isTitle());
-    onCreated(savedInstanceState);
     interstitialAd = MyAdView.getAdmobInterstitialAd(this);
   }
 
   protected abstract int getLayoutResID();
 
-  protected abstract void onCreated(@Nullable Bundle savedInstanceState);
 
   @Override protected void onDestroy() {
     super.onDestroy();

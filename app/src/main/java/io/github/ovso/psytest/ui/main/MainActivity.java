@@ -33,10 +33,6 @@ public class MainActivity extends BaseActivity
     return R.layout.activity_main;
   }
 
-  @Override protected void onCreated(@Nullable Bundle savedInstanceState) {
-    presenter.onCreate();
-  }
-
   @Override public void setupView() {
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
     ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

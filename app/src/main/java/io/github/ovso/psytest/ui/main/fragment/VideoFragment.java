@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 import butterknife.BindView;
 import com.google.android.gms.ads.AdListener;
 import io.github.ovso.psytest.R;
@@ -121,6 +120,7 @@ public class VideoFragment extends BaseFragment implements VideoFragmentPresente
 
   @Override public void navigateToWeb(String url) {
     Intent intent = new Intent(getContext(), WebActivity.class);
+    intent.putExtra("url", url);
     startActivity(intent);
   }
 
