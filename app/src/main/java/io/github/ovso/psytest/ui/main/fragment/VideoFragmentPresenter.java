@@ -15,6 +15,8 @@ public interface VideoFragmentPresenter {
 
   void onRefresh();
 
+  boolean onOptionsItemSelected(int itemId);
+
   interface View {
 
     void setupRecyclerView();
@@ -34,5 +36,7 @@ public interface VideoFragmentPresenter {
     void showLoading();
 
     void setupAdListener();
+
+    void navigateToWeb(String url);
   }
 }

@@ -1,6 +1,7 @@
 package io.github.ovso.psytest.ui.main.fragment;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import io.github.ovso.psytest.ui.base.view.VideoRecyclerView;
 import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapter;
 import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapterView;
 import io.github.ovso.psytest.ui.video.VideoActivity;
+import io.github.ovso.psytest.ui.web.WebActivity;
 import javax.inject.Inject;
 
 public class VideoFragment extends BaseFragment implements VideoFragmentPresenter.View,
@@ -33,6 +35,11 @@ public class VideoFragment extends BaseFragment implements VideoFragmentPresente
   @Inject VideoFragmentPresenter presenter;
   @Inject VideoAdapter adapter;
   @Inject VideoAdapterView adapterView;
+
+  @Override public void onAttach(Context context) {
+    super.onAttach(context);
+    setHasOptionsMenu(true);
+  }
 
   public static Fragment newInstance(Bundle args) {
     VideoFragment f = new VideoFragment();
@@ -112,6 +119,11 @@ public class VideoFragment extends BaseFragment implements VideoFragmentPresente
     });
   }
 
+  @Override public void navigateToWeb(String url) {
+    Intent intent = new Intent(getContext(), WebActivity.class);
+    startActivity(intent);
+  }
+
   @Override public void onItemClick(View view, SearchItem data, int itemPosition) {
     presenter.onItemClick(data);
   }
@@ -126,7 +138,6 @@ public class VideoFragment extends BaseFragment implements VideoFragmentPresente
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
-    Toast.makeText(getContext(), "onOptionsMenu", Toast.LENGTH_SHORT).show();
-    return super.onOptionsItemSelected(item);
+    return presenter.onOptionsItemSelected(item.getItemId());
   }
 }

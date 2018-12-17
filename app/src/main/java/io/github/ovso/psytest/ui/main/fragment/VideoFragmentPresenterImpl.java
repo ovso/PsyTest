@@ -14,6 +14,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import java.util.Collections;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import timber.log.Timber;
 
 public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
@@ -120,7 +122,48 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
     compositeDisposable.add(disposable);
   }
 
+  @Override public boolean onOptionsItemSelected(int itemId) {
+    String url = Portal.toUrl(itemId, q);
+    view.navigateToWeb(url);
+    return true;
+  }
+
   private <E> void shuffle(List<E> $items) {
     Collections.shuffle($items);
+  }
+
+  @Getter @AllArgsConstructor enum Portal {
+    GOOGLE(R.id.action_google, "https://google.co.kr/search?q="),
+    NAVER(R.id.action_naver, "https://m.search.naver.com/search.naver?where=m_video&query="),
+    DAUM(R.id.action_daum, "https://m.search.daum.net/search?w=vclip&q=");
+
+    private int id;
+    private String url;
+
+    public static Portal toType(int id) {
+      for (Portal portal : Portal.values()) {
+        if (portal.id == id) {
+          return portal;
+        }
+      }
+
+      return GOOGLE;
+    }
+
+    public static String toUrl(int act_id, String q) {
+      Portal portal = toType(act_id);
+      switch (portal) {
+
+        case GOOGLE:
+          return Portal.GOOGLE.getUrl() + q + "&tbm=vid";
+        case NAVER:
+          return Portal.NAVER.getUrl() + q;
+        case DAUM:
+          return Portal.DAUM.getUrl() + q;
+        default:
+          return Portal.GOOGLE.getUrl() + q + "&tbm=vid";
+      }
+    }
+
   }
 }
