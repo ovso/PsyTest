@@ -1,8 +1,8 @@
 package io.github.ovso.psytest.ui.web
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.MenuItem
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
@@ -19,8 +19,18 @@ class WebActivity : BaseActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setupWebView();
+    setupActionBar()
+    setupWebView()
     webview_web.loadUrl(intent.getStringExtra("url"));
+  }
+
+  private fun setupActionBar() {
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    finish()
+    return super.onOptionsItemSelected(item)
   }
 
   private fun setupWebView() {
@@ -35,6 +45,7 @@ class WebActivity : BaseActivity() {
     webview_web.webChromeClient = WebChromeClient()
     webview_web.webViewClient = WebViewClient()
     //webview_web.webChromeClient
+
   }
 
   private inner class MyWebChromeClient : WebChromeClient() {
@@ -67,18 +78,8 @@ class WebActivity : BaseActivity() {
       super.onPageFinished(view, url)
     }
   }
+
+  override fun isTitle(): Boolean {
+    return true
+  }
 }
-
-/*
-
-
-    webView.getSettings().setAppCacheEnabled(true);
-    webView.getSettings().setSupportMultipleWindows(true);
-    webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-    webView.getSettings().setGeolocationEnabled(true);
-    webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-    webView.setWebChromeClient(new MyWebChromeClient());
-    webView.setWebViewClient(new MyWebViewClient());
-
-
- */
