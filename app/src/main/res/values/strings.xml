@@ -13,4 +13,5 @@
   <string name="youtube_use_warning">YouTube app must be installed. or, the setting must be set to Enable</string>
   <string name="no_videos_found">Video not found</string>
   <string name="title_activity_web">WebActivity</string>
+  <string name="web_share">사이트 공유</string>
 </resources>
