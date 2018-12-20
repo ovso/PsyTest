@@ -11,7 +11,6 @@ import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import butterknife.OnClick
 import io.github.ovso.psytest.R
 import io.github.ovso.psytest.ui.base.view.BaseActivity
 import kotlinx.android.synthetic.main.content_web.progressbar_web
