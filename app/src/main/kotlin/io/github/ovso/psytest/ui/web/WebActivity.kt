@@ -47,7 +47,7 @@ class WebActivity : AdsBaseActivity() {
   }
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-    finish()
+    super.onBackPressed()
     return super.onOptionsItemSelected(item)
   }
 

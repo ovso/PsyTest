@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'hugo'
 apply plugin: 'io.fabric'
 
@@ -144,4 +145,3 @@ dependencies {
 
 // Add to the bottom of the file
 apply plugin: 'com.google.gms.google-services'
-apply plugin: 'kotlin-android-extensions'
