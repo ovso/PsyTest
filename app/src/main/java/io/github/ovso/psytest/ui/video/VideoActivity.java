@@ -11,7 +11,7 @@ import io.github.ovso.psytest.R;
 import io.github.ovso.psytest.Security;
 import io.github.ovso.psytest.ui.base.view.AdsActivity;
 
-public class PortraitVideoActivity extends AdsActivity {
+public class VideoActivity extends AdsActivity {
 
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);

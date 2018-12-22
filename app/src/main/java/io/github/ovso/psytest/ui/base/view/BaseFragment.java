@@ -11,6 +11,7 @@ import butterknife.Unbinder;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.InterstitialAd;
 import dagger.android.support.DaggerFragment;
+import io.github.ovso.psytest.R;
 
 public abstract class BaseFragment extends DaggerFragment {
   private Unbinder unbinder;
@@ -24,6 +25,7 @@ public abstract class BaseFragment extends DaggerFragment {
 
   @Override public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
+    setHasOptionsMenu(true);
     onActivityCreate(savedInstanceState);
   }
 

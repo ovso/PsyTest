@@ -1,7 +1,12 @@
 package io.github.ovso.psytest.ui.main;
 
-public interface MainPresenter {
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.OnLifecycleEvent;
 
+public interface MainPresenter extends LifecycleObserver {
+
+  @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
   void onCreate();
 
   interface View {

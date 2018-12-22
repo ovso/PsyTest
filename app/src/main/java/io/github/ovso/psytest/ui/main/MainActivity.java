@@ -1,7 +1,5 @@
 package io.github.ovso.psytest.ui.main;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -23,7 +21,7 @@ public class MainActivity extends BaseActivity
 
   @BindView(R.id.tab_layout) TabLayout tabLayout;
   @BindView(R.id.view_pager) ViewPager viewPager;
-  @BindView(R.id.ad_container) ViewGroup adContainer;
+  @BindView(R.id.framelayout_all_adscontainer) ViewGroup adContainer;
 
   @Inject MainPresenter presenter;
   @Inject MainPagerAdapter pagerAdapter;
@@ -31,10 +29,6 @@ public class MainActivity extends BaseActivity
 
   @Override protected int getLayoutResID() {
     return R.layout.activity_main;
-  }
-
-  @Override protected void onCreated(@Nullable Bundle savedInstanceState) {
-    presenter.onCreate();
   }
 
   @Override public void setupView() {

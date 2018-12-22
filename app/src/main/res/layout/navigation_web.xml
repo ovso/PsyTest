@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@color/item_background"
+    android:gravity="center"
+    android:orientation="horizontal"
+    >
+  <ImageButton
+      android:id="@+id/button_web_back"
+      android:scaleType="fitCenter"
+      app:srcCompat="@drawable/ic_keyboard_arrow_left"
+      style="@style/WebviewNavigationButtonStyle"
+      />
+  <ImageButton
+      android:id="@+id/button_web_forward"
+      android:scaleType="fitCenter"
+      app:srcCompat="@drawable/ic_keyboard_arrow_right"
+      style="@style/WebviewNavigationButtonStyle"
+      />
+  <ImageButton
+      android:id="@+id/button_web_refresh"
+      android:scaleType="center"
+      app:srcCompat="@drawable/ic_refresh"
+      style="@style/WebviewNavigationButtonStyle"
+      />
+  <ImageButton
+      android:id="@+id/button_web_share"
+      android:scaleType="center"
+      app:srcCompat="@drawable/ic_share"
+      style="@style/WebviewNavigationButtonStyle"
+      />
+  <ImageButton
+      android:id="@+id/button_web_browser"
+      android:scaleType="center"
+      app:srcCompat="@drawable/ic_open_in_browser"
+      style="@style/WebviewNavigationButtonStyle"
+      />
+</LinearLayout>

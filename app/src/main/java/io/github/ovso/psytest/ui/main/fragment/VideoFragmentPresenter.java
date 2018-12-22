@@ -1,6 +1,5 @@
 package io.github.ovso.psytest.ui.main.fragment;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import io.github.ovso.psytest.data.network.model.SearchItem;
 
@@ -16,17 +15,15 @@ public interface VideoFragmentPresenter {
 
   void onRefresh();
 
+  boolean onOptionsItemSelected(int itemId);
+
   interface View {
 
     void setupRecyclerView();
 
     void refresh();
 
-    void showVideoTypeDialog(DialogInterface.OnClickListener onClickListener);
-
-    void showPortraitVideo(String videoId);
-
-    void showLandscapeVideo(String videoId);
+    void showVideo(String videoId);
 
     void showYoutubeUseWarningDialog();
 
@@ -39,5 +36,7 @@ public interface VideoFragmentPresenter {
     void showLoading();
 
     void setupAdListener();
+
+    void navigateToWeb(String url, String title);
   }
 }
