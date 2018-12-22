@@ -36,6 +36,7 @@ class WebActivity : BaseActivity() {
 
   private fun setupActionBar() {
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    title = intent.getStringExtra("title");
   }
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {

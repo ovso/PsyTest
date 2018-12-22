@@ -37,6 +37,6 @@ public interface VideoFragmentPresenter {
 
     void setupAdListener();
 
-    void navigateToWeb(String url);
+    void navigateToWeb(String url, String title);
   }
 }

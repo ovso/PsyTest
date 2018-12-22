@@ -118,9 +118,10 @@ public class VideoFragment extends BaseFragment implements VideoFragmentPresente
     });
   }
 
-  @Override public void navigateToWeb(String url) {
+  @Override public void navigateToWeb(String url, String title) {
     Intent intent = new Intent(getContext(), WebActivity.class);
     intent.putExtra("url", url);
+    intent.putExtra("title", title);
     startActivity(intent);
   }
 

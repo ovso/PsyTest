@@ -124,7 +124,8 @@ public class VideoFragmentPresenterImpl implements VideoFragmentPresenter {
 
   @Override public boolean onOptionsItemSelected(int itemId) {
     String url = Portal.toUrl(itemId, q);
-    view.navigateToWeb(url);
+    String title = Portal.toType(itemId).toString();
+    view.navigateToWeb(url, title);
     return true;
   }
 
