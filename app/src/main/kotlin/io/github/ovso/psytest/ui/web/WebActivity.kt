@@ -12,16 +12,18 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import io.github.ovso.psytest.R
-import io.github.ovso.psytest.ui.base.view.BaseActivity
+import io.github.ovso.psytest.ui.base.view.AdsBaseActivity
+import io.github.ovso.psytest.ui.base.view.MyAdView
 import kotlinx.android.synthetic.main.content_web.progressbar_web
 import kotlinx.android.synthetic.main.content_web.webview_web
+import kotlinx.android.synthetic.main.layout_banner_container.framelayout_all_adscontainer
 import kotlinx.android.synthetic.main.navigation_web.button_web_back
 import kotlinx.android.synthetic.main.navigation_web.button_web_browser
 import kotlinx.android.synthetic.main.navigation_web.button_web_forward
 import kotlinx.android.synthetic.main.navigation_web.button_web_refresh
 import kotlinx.android.synthetic.main.navigation_web.button_web_share
 
-class WebActivity : BaseActivity() {
+class WebActivity : AdsBaseActivity() {
   override fun getLayoutResID(): Int {
     return R.layout.activity_web
   }
@@ -31,7 +33,12 @@ class WebActivity : BaseActivity() {
     setupActionBar()
     setupWebView()
     setupNaviEvent()
+    showBannerAds();
     webview_web.loadUrl(intent.getStringExtra("url"));
+  }
+
+  private fun showBannerAds() {
+    framelayout_all_adscontainer.addView(MyAdView.getAdmobAdView(this))
   }
 
   private fun setupActionBar() {

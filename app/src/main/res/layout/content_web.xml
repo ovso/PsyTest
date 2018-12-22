@@ -30,4 +30,5 @@
         />
   </FrameLayout>
   <include layout="@layout/navigation_web"/>
+  <include layout="@layout/layout_banner_container"/>
 </LinearLayout>
