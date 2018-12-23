@@ -38,7 +38,7 @@ public class VideoRecyclerView extends RecyclerView {
   }
 
   private void setOnItemClickListener(Adapter adapter) {
-    if (!ObjectUtils.isEmpty(adapter)) {
+    if (!ObjectUtils.INSTANCE.isEmpty(adapter)) {
       if ((adapter instanceof VideoAdapter)) {
         ((VideoAdapter) adapter).setOnRecyclerViewItemClickListener(
             onRecyclerViewItemClickListener);

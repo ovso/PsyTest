@@ -9,9 +9,9 @@ public class App extends DaggerApplication {
   @Override public void onCreate() {
     super.onCreate();
 
-    AppInitUtils.logger();
-    AppInitUtils.crashlytics(this);
-    AppInitUtils.ads(this);
+    AppInitUtils.INSTANCE.logger();
+    AppInitUtils.INSTANCE.crashlytics(this);
+    AppInitUtils.INSTANCE.ads(this);
   }
 
   @Override protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
