@@ -8,6 +8,7 @@ import io.github.ovso.psytest.ui.base.interfaces.OnRecyclerViewItemClickListener
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Setter;
+import org.jetbrains.annotations.Nullable;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoViewHolder>
     implements VideoAdapterView, VideoAdapterDataModel<SearchItem> {
@@ -35,10 +36,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoViewHolder>
     return items.size();
   }
 
-  @Override public void addAll(List<SearchItem> $items) {
-    items.addAll($items);
-  }
-
   @Override public SearchItem getItem(int position) {
     return items.get(position);
   }
@@ -54,5 +51,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoViewHolder>
 
   @Override public void refresh(int positionStart, int itemCount) {
     notifyItemRangeInserted(positionStart, itemCount);
+  }
+
+  @Override public void addAll(@Nullable List<? extends SearchItem> $items) {
+    items.addAll($items);
   }
 }
