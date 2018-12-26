@@ -17,14 +17,16 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoViewHolder>
 
   @NonNull @Override
   public VideoViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-    return VideoViewHolder.create(viewGroup);
+    return VideoViewHolder.Companion.create(viewGroup);
   }
 
   @Override
   public void onBindViewHolder(@NonNull VideoViewHolder viewHolder, int position) {
     if (viewHolder instanceof Bindable) {
       viewHolder.bind(getItem(position));
-      viewHolder.setOnRecyclerViewItemClickListener(onRecyclerViewItemClickListener);
+      viewHolder.setOnItemClickListener(onRecyclerViewItemClickListener);
+      //viewHolder.setOnItemClickListener(onRecyclerViewItemClickListener);
+      //viewHolder.setOnRecyclerViewItemClickListener(onRecyclerViewItemClickListener);
     }
   }
 
