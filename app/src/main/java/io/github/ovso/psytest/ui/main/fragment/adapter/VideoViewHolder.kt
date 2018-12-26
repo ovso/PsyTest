@@ -5,11 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import com.bumptech.glide.Glide
 import io.github.ovso.psytest.R
-import io.github.ovso.psytest.R.id.play_button
-import io.github.ovso.psytest.R.id.thumbnail_image_view
 import io.github.ovso.psytest.data.network.model.SearchItem
 import io.github.ovso.psytest.ui.base.interfaces.OnRecyclerViewItemClickListener
 
@@ -20,22 +17,23 @@ class VideoViewHolder private constructor(itemView: View) : RecyclerView.ViewHol
 
   override fun bind(item: SearchItem) {
     data = item
-    showThumbnail();
-    setupPlayButton();
+    setupPlayButton()
+    showThumbnail()
   }
 
   private fun setupPlayButton() {
-    (play_button as Button).setOnClickListener { v ->
-      onItemClickListener?.onItemClick(
-          v, data!!, 0
-      )
-    }
+    itemView.findViewById<Button>(R.id.play_button)
+        .setOnClickListener { v ->
+          onItemClickListener?.onItemClick(
+              v, data!!, 0
+          )
+        }
   }
 
   private fun showThumbnail() {
     Glide.with(itemView.context)
         .load(data!!.snippet!!.thumbnails!!.medium!!.url)
-        .into(thumbnail_image_view as ImageView)
+        .into(itemView.findViewById(R.id.imageview_video_item))
   }
 
   companion object {

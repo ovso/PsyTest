@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoViewHolder>
     implements VideoAdapterView, VideoAdapterDataModel<SearchItem> {
-  @Setter protected OnRecyclerViewItemClickListener onRecyclerViewItemClickListener;
+  @Setter protected OnRecyclerViewItemClickListener<SearchItem> onRecyclerViewItemClickListener;
   private List<SearchItem> items = new ArrayList<>();
 
   @NonNull @Override
@@ -22,12 +22,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoViewHolder>
 
   @Override
   public void onBindViewHolder(@NonNull VideoViewHolder viewHolder, int position) {
-    if (viewHolder instanceof Bindable) {
-      viewHolder.bind(getItem(position));
-      viewHolder.setOnItemClickListener(onRecyclerViewItemClickListener);
-      //viewHolder.setOnItemClickListener(onRecyclerViewItemClickListener);
-      //viewHolder.setOnRecyclerViewItemClickListener(onRecyclerViewItemClickListener);
-    }
+    viewHolder.bind(getItem(position));
+    viewHolder.setOnItemClickListener(onRecyclerViewItemClickListener);
   }
 
   @Override public int getItemCount() {
@@ -47,7 +43,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoViewHolder>
   }
 
   @Override public void refresh() {
-    //notifyItemRangeInserted(0, getSize());
     notifyDataSetChanged();
   }
 
@@ -56,6 +51,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoViewHolder>
   }
 
   @Override public void addAll(@Nullable List<? extends SearchItem> $items) {
-    items.addAll($items);
+    if ($items != null) {
+      items.addAll($items);
+    }
   }
 }
