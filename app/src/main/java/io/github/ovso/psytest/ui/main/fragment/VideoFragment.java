@@ -125,10 +125,6 @@ public class VideoFragment extends BaseFragment implements VideoFragmentPresente
     startActivity(intent);
   }
 
-  @Override public void onItemClick(View view, SearchItem data, int itemPosition) {
-    presenter.onItemClick(data);
-  }
-
   @Override public void onLoadMore() {
     presenter.onLoadMore();
   }
@@ -140,5 +136,9 @@ public class VideoFragment extends BaseFragment implements VideoFragmentPresente
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     return presenter.onOptionsItemSelected(item.getItemId());
+  }
+
+  @Override public void onItemClick(SearchItem data) {
+    presenter.onItemClick(data);
   }
 }

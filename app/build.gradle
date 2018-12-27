@@ -84,6 +84,10 @@ android {
   packagingOptions {
     exclude 'META-INF/proguard/androidx-annotations.pro'
   }
+
+  androidExtensions {
+    experimental = true
+  }
 }
 
 dependencies {
