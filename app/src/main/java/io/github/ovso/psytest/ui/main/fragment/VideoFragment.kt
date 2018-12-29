@@ -28,6 +28,7 @@ class VideoFragment : BaseFragment(),
     VideoFragmentPresenter.View,
     OnRecyclerViewItemClickListener<SearchItem>,
     OnEndlessRecyclerScrollListener.OnLoadMoreListener {
+  override val layoutResID: Int = R.layout.fragment_video
 
   var presenter: VideoFragmentPresenter? = null
     @Inject set
@@ -41,9 +42,9 @@ class VideoFragment : BaseFragment(),
     setHasOptionsMenu(true)
   }
 
-  override fun getLayoutResID(): Int {
-    return R.layout.fragment_video
-  }
+//  override fun getLayoutResID(): Int {
+//    return R.layout.fragment_video
+//  }
 
   override fun onActivityCreate(savedInstanceState: Bundle?) {
     presenter!!.onActivityCreated(Objects.requireNonNull<Bundle>(arguments))
@@ -90,8 +91,8 @@ class VideoFragment : BaseFragment(),
 
   override fun setupSwipeRefresh() {
     swiperefreshlayout_video.setOnRefreshListener {
-      if (interstitialAd.isLoaded) {
-        interstitialAd.show()
+      if (interstitialAd!!.isLoaded) {
+        interstitialAd!!.show()
       } else {
         presenter!!.onRefresh()
       }
@@ -107,7 +108,7 @@ class VideoFragment : BaseFragment(),
   }
 
   override fun setupAdListener() {
-    interstitialAd.adListener = object : AdListener() {
+    interstitialAd!!.adListener = object : AdListener() {
       override fun onAdClosed() {
         super.onAdClosed()
         presenter!!.onRefresh()
