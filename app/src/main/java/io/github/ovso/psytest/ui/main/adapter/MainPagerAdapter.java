@@ -35,7 +35,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter
     for (int i = 0; i < size; i++) {
       Bundle args = new Bundle();
       args.putInt(KeyName.POSITION.get(), i);
-      items.add(VideoFragment.newInstance(args));
+      items.add(VideoFragment.Companion.newInstance(args));
     }
   }
 

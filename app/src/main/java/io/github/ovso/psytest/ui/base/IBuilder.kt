@@ -1,5 +1,5 @@
 package io.github.ovso.psytest.ui.base
 
-interface Builder<T> {
+interface IBuilder<T> {
   fun build(): T
 }

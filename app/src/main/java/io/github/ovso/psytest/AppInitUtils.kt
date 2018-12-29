@@ -19,10 +19,11 @@ object AppInitUtils {
   }
 
   fun crashlytics(context: Context) {
-    val core = CrashlyticsCore.Builder()
-        .disabled(!BuildConfig.DEBUG)
-        .build()
-    Fabric.with(context, Crashlytics.Builder().core(core).build())
+    if (!BuildConfig.DEBUG) {
+      val core = CrashlyticsCore.Builder()
+          .build()
+      Fabric.with(context, Crashlytics.Builder().core(core).build())
+    }
   }
 
   fun ads(context: Context) {

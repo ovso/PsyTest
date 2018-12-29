@@ -13,7 +13,7 @@ import lombok.Getter;
 
 public class VideoRecyclerView extends RecyclerView {
   private OnRecyclerViewItemClickListener onRecyclerViewItemClickListener;
-  @Getter private OnEndlessRecyclerScrollListener onEndlessRecyclerScrollListener;
+  @Getter public OnEndlessRecyclerScrollListener onEndlessRecyclerScrollListener;
   public VideoRecyclerView(@NonNull Context context) {
     super(context);
   }
