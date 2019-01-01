@@ -32,7 +32,7 @@ abstract class BaseFragment : DaggerFragment() {
     savedInstanceState: Bundle?
   ) {
     super.onViewCreated(view, savedInstanceState)
-    interstitialAd = MyAdView.getAdmobInterstitialAd(context)
+    interstitialAd = MyAdView.getAdmobInterstitialAd(context!!)
   }
 
   protected abstract fun onActivityCreate(savedInstanceState: Bundle?)

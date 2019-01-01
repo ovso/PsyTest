@@ -47,10 +47,6 @@ public class MainActivity extends BaseActivity
     tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
   }
 
-  @Override public boolean isTitle() {
-    return true;
-  }
-
   @Override public void setupViewPager() {
     viewPager.setAdapter(pagerAdapter);
     tabLayout.setupWithViewPager(viewPager);
@@ -71,7 +67,7 @@ public class MainActivity extends BaseActivity
   }
 
   @Override public void showBannerAd() {
-    adContainer.addView(MyAdView.getAdmobAdView(getApplicationContext()));
+    adContainer.addView(MyAdView.INSTANCE.getAdmobAdView(getApplicationContext()));
   }
 
   @Override public void changeTheme() {

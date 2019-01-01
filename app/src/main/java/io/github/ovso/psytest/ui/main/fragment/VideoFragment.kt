@@ -86,7 +86,7 @@ class VideoFragment : BaseFragment(),
   }
 
   override fun setLoaded() {
-    recyclerview_video.onEndlessRecyclerScrollListener.setLoaded()
+    recyclerview_video.onEndlessRecyclerScrollListener?.setLoaded()
   }
 
   override fun setupSwipeRefresh() {
