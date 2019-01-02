@@ -3,11 +3,8 @@ package io.github.ovso.psytest.ui.main
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
 import android.support.v4.view.GravityCompat
-import android.support.v4.view.ViewPager
 import android.support.v4.widget.DrawerLayout
 import android.view.MenuItem
-import android.view.ViewGroup
-import butterknife.BindView
 import io.github.ovso.psytest.R
 import io.github.ovso.psytest.ui.base.view.BaseActivity
 import io.github.ovso.psytest.ui.base.view.MyAdView
