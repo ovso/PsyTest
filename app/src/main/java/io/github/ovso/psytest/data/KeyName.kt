@@ -1,6 +1,6 @@
-package io.github.ovso.psytest.data;
+package io.github.ovso.psytest.data
 
-public enum KeyName {
+enum class KeyName(private val value: String) {
   POSITION("position"),
   PAGE_TOKEN("pageToken"),
   Q("q"),
@@ -11,13 +11,7 @@ public enum KeyName {
   KEY("key"),
   PART("part");
 
-  private String value;
-
-  KeyName(String $value) {
-    this.value = $value;
-  }
-
-  public String get() {
-    return value;
+  fun get(): String {
+    return value
   }
 }

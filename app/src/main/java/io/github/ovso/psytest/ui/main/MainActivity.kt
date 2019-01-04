@@ -19,6 +19,8 @@ import javax.inject.Inject
 class MainActivity : BaseActivity(),
     NavigationView.OnNavigationItemSelectedListener,
     MainPresenter.View {
+  override val layoutResID: Int
+    get() = R.layout.activity_main
 
   var presenter: MainPresenter? = null
     @Inject set
@@ -27,9 +29,6 @@ class MainActivity : BaseActivity(),
   var adapterView: MainAdapterView? = null
     @Inject set
 
-  override fun getLayoutResID(): Int {
-    return R.layout.activity_main
-  }
 
   override fun setupView() {
 //    val toggle = ActionBarDrawerToggle(

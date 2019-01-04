@@ -10,10 +10,10 @@ import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapter
 import io.github.ovso.psytest.utils.ObjectUtils
 
 class VideoRecyclerView : RecyclerView {
-  private var onRecyclerViewItemClickListener: OnRecyclerViewItemClickListener<*>? = null
+  private var onRecyclerViewItemClickListener: OnRecyclerViewItemClickListener<SearchItem>? = null
   var onEndlessRecyclerScrollListener: OnEndlessRecyclerScrollListener? = null
 
-  constructor(context: Context) : super(context) {}
+  constructor(context: Context) : super(context)
 
   constructor(
     context: Context,
@@ -33,7 +33,7 @@ class VideoRecyclerView : RecyclerView {
     setOnItemClickListener(adapter)
   }
 
-  fun setOnItemClickListener(listener: OnRecyclerViewItemClickListener<*>) {
+  fun setOnItemClickListener(listener: OnRecyclerViewItemClickListener<SearchItem>) {
     onRecyclerViewItemClickListener = listener
     setOnItemClickListener(adapter)
   }
@@ -41,8 +41,7 @@ class VideoRecyclerView : RecyclerView {
   private fun setOnItemClickListener(adapter: RecyclerView.Adapter<*>?) {
     if (!ObjectUtils.isEmpty(adapter)) {
       if (adapter is VideoAdapter) {
-        adapter.onRecyclerViewItemClickListener =
-            onRecyclerViewItemClickListener as OnRecyclerViewItemClickListener<SearchItem>?
+        adapter.onRecyclerViewItemClickListener = onRecyclerViewItemClickListener
       }
     }
   }
