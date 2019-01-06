@@ -24,9 +24,8 @@ import kotlinx.android.synthetic.main.navigation_web.button_web_refresh
 import kotlinx.android.synthetic.main.navigation_web.button_web_share
 
 class WebActivity : AdsBaseActivity() {
-  override fun getLayoutResID(): Int {
-    return R.layout.activity_web
-  }
+  override val layoutResID: Int
+    get() = R.layout.activity_web
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -93,10 +92,6 @@ class WebActivity : AdsBaseActivity() {
       updateWebNaviButton()
       super.onPageFinished(view, url)
     }
-  }
-
-  override fun isTitle(): Boolean {
-    return true
   }
 
   private fun updateWebNaviButton() {

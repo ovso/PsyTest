@@ -1,6 +1,6 @@
 package io.github.ovso.psytest
 
-enum class Security(public val value: String) {
+enum class Security(val value: String) {
   KEY("AIzaSyBE3QBPHY8v6wI8OvqfI5e2kF9LlHFxJMU"),
 
   ADMOB_APP_ID(

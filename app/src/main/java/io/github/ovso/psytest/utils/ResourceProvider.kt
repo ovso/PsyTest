@@ -22,8 +22,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import javax.inject.Inject
 
-class ResourceProvider @Inject
-constructor(private val context: Context) {
+class ResourceProvider @Inject constructor(private val context: Context) {
 
   fun getText(@StringRes resId: Int): CharSequence {
     return context.getText(resId)

@@ -1,8 +1,9 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'hugo'
 apply plugin: 'io.fabric'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
@@ -111,8 +112,8 @@ dependencies {
   implementation deps.dagger.runtime
   implementation deps.dagger.android
   implementation deps.dagger.android_support
-  annotationProcessor deps.dagger.compiler
-  annotationProcessor deps.dagger.android_support_compiler
+  kapt deps.dagger.compiler
+  kapt deps.dagger.android_support_compiler
 
   implementation deps.glide.runtime
   annotationProcessor deps.glide.compiler
