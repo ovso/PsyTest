@@ -1,7 +1,7 @@
 package io.github.ovso.psytest
 
 enum class Security(val value: String) {
-  KEY("AIzaSyBE3QBPHY8v6wI8OvqfI5e2kF9LlHFxJMU"),
+  KEY("AIzaSyDsNxMYr8ytQEucWEr03erQnMgWFkwxJVQ"),
 
   ADMOB_APP_ID(
       if (BuildConfig.DEBUG)

@@ -23,11 +23,6 @@ buildscript {
   }
 }
 
-plugins {
-  id "com.github.konifar.gradle.unused-resources-remover" version "0.3.3"
-}
-
-
 allprojects {
   addRepos(repositories)
 }
