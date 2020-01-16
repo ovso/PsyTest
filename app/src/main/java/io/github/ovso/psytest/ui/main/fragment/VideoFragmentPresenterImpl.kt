@@ -15,6 +15,8 @@ import io.reactivex.SingleObserver
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
+import java.util.Collections.shuffle
+import kotlin.random.Random
 
 class VideoFragmentPresenterImpl(
   private val view: VideoFragmentPresenter.View,
@@ -38,6 +40,11 @@ class VideoFragmentPresenterImpl(
     position = args.getInt(KeyName.POSITION.get())
     q = resourceProvider.getStringArray(R.array.q)[position]
     searchRequest.getResult(q, nextPageToken)
+        .map {
+          val newItems = it.items?.toMutableList()
+          it.items = newItems?.shuffled(Random.Default)
+          it
+        }
         .subscribeOn(schedulersFacade.io())
         .observeOn(schedulersFacade.ui())
         .subscribe(object : SingleObserver<Search> {
@@ -48,10 +55,8 @@ class VideoFragmentPresenterImpl(
           override fun onSuccess(search: Search) {
             nextPageToken = search.nextPageToken
             val items = search.items
-            shuffle(items)
             adapterDataModel.addAll(items)
             view.refresh()
-            view.setLoaded()
             view.hideLoading()
           }
 
@@ -79,6 +84,11 @@ class VideoFragmentPresenterImpl(
   override fun onLoadMore() {
     if (!TextUtils.isEmpty(nextPageToken) && !TextUtils.isEmpty(q)) {
       searchRequest.getResult(q, nextPageToken)
+          .map {
+            it.items = it.items?.toMutableList()
+                ?.shuffled(Random.Default)
+            it
+          }
           .subscribeOn(schedulersFacade.io())
           .observeOn(schedulersFacade.ui())
           .subscribe(object : SingleObserver<Search> {
@@ -89,7 +99,6 @@ class VideoFragmentPresenterImpl(
             override fun onSuccess(search: Search) {
               nextPageToken = search.nextPageToken
               val items = search.items
-              shuffle(items)
               adapterDataModel.addAll(items)
               view.refresh()
               view.setLoaded()
@@ -102,6 +111,7 @@ class VideoFragmentPresenterImpl(
     }
   }
 
+  @Deprecated("Unsupported")
   override fun onRefresh() {
     adapterDataModel.clear()
     view.refresh()
@@ -138,11 +148,6 @@ class VideoFragmentPresenterImpl(
         .toString()
     view.navigateToWeb(url, title)
     return true
-  }
-
-  fun shuffle(items: List<SearchItem>?) {
-    items?.toMutableList()
-        ?.shuffle()
   }
 
   internal enum class Portal(

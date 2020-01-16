@@ -100,11 +100,17 @@ class VideoFragment : BaseFragment(),
   }
 
   override fun hideLoading() {
-    swiperefreshlayout_video.isRefreshing = false
+    with(swiperefreshlayout_video) {
+      isEnabled = false
+      isRefreshing = false
+    }
   }
 
   override fun showLoading() {
-    swiperefreshlayout_video.isRefreshing = true
+    with(swiperefreshlayout_video) {
+      isEnabled = true
+      isRefreshing = true
+    }
   }
 
   override fun setupAdListener() {
