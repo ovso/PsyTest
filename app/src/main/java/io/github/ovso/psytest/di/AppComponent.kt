@@ -9,10 +9,7 @@ import dagger.android.support.AndroidSupportInjectionModule
 import io.github.ovso.psytest.App
 
 @Component(
-    modules = arrayOf(
-        AndroidSupportInjectionModule::class, AppModule::class, ActivityBuilder::class,
-        FragmentBuilder::class
-    )
+    modules = [AndroidSupportInjectionModule::class, AppModule::class, ActivityBuilder::class, FragmentBuilder::class]
 )
 interface AppComponent : AndroidInjector<DaggerApplication> {
   @Component.Builder

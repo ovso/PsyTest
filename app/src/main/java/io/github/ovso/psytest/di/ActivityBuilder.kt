@@ -9,11 +9,11 @@ import io.github.ovso.psytest.ui.main.di.MainActivityViewModule
 import io.github.ovso.psytest.ui.web.WebActivity
 import javax.inject.Singleton
 
-@Module(includes = arrayOf(AndroidSupportInjectionModule::class))
+@Module(includes = [AndroidSupportInjectionModule::class])
 abstract class ActivityBuilder {
   @Singleton
   @ContributesAndroidInjector(
-      modules = arrayOf(MainActivityModule::class, MainActivityViewModule::class)
+      modules = [MainActivityModule::class, MainActivityViewModule::class]
   )
   internal abstract fun bindMainActivity(): MainActivity
 
