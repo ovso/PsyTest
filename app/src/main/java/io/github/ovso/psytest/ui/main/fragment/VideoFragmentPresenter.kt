@@ -41,5 +41,7 @@ interface VideoFragmentPresenter {
       url: String,
       title: String
     )
+
+    fun addEvent()
   }
 }

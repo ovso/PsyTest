@@ -37,6 +37,7 @@ class VideoFragmentPresenterImpl(
     view.setupSwipeRefresh()
     view.showLoading()
     view.setupAdListener()
+    view.addEvent()
     position = args.getInt(KeyName.POSITION.get())
     q = resourceProvider.getStringArray(R.array.q)[position]
     searchRequest.getResult(q, nextPageToken)

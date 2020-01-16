@@ -48,6 +48,6 @@ class VideoRecyclerView : RecyclerView {
 
   override fun addOnScrollListener(listener: RecyclerView.OnScrollListener) {
     super.addOnScrollListener(listener)
-    onEndlessRecyclerScrollListener = listener as OnEndlessRecyclerScrollListener
+    onEndlessRecyclerScrollListener = listener as? OnEndlessRecyclerScrollListener
   }
 }
