@@ -8,11 +8,11 @@ import io.github.ovso.psytest.ui.main.fragment.di.VideoFragmentModule
 import io.github.ovso.psytest.ui.main.fragment.di.VideoFragmentViewModule
 import javax.inject.Singleton
 
-@Module(includes = arrayOf(AndroidSupportInjectionModule::class))
+@Module(includes = [AndroidSupportInjectionModule::class])
 abstract class FragmentBuilder {
   @Singleton
   @ContributesAndroidInjector(
-      modules = arrayOf(VideoFragmentModule::class, VideoFragmentViewModule::class)
+      modules = [VideoFragmentModule::class, VideoFragmentViewModule::class]
   )
   internal abstract fun contributeRepoFragment(): VideoFragment
 }
