@@ -6,5 +6,5 @@ class Search {
   internal val nextPageToken: String? = null
   internal val regionCode: String? = null
   internal val pageInfo: SearchPageInfo? = null
-  internal val items: List<SearchItem>? = null
+  internal var items: List<SearchItem>? = null
 }

@@ -6,6 +6,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.RecyclerView.OnScrollListener
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -19,6 +21,7 @@ import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapter
 import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapterView
 import io.github.ovso.psytest.ui.video.VideoActivity
 import io.github.ovso.psytest.ui.web.WebActivity
+import kotlinx.android.synthetic.main.fragment_video.fab_video
 import kotlinx.android.synthetic.main.fragment_video.recyclerview_video
 import kotlinx.android.synthetic.main.fragment_video.swiperefreshlayout_video
 import java.util.Objects
@@ -66,6 +69,30 @@ class VideoFragment : BaseFragment(),
             ).setOnLoadMoreListener(this)
             .setVisibleThreshold(5).build()
     )
+    recyclerview_video.addOnScrollListener(fabScrollListener)
+  }
+
+  private val fabScrollListener = object : OnScrollListener() {
+/*
+    override fun onScrolled(
+      recyclerView: RecyclerView,
+      dx: Int,
+      dy: Int
+    ) {
+      super.onScrolled(recyclerView, dx, dy)
+    }
+*/
+
+    override fun onScrollStateChanged(
+      recyclerView: RecyclerView,
+      newState: Int
+    ) {
+      when (newState == RecyclerView.SCROLL_STATE_IDLE) {
+        true -> fab_video.show()
+        false -> fab_video.hide()
+      }
+      super.onScrollStateChanged(recyclerView, newState)
+    }
   }
 
   override fun refresh() {
@@ -100,11 +127,17 @@ class VideoFragment : BaseFragment(),
   }
 
   override fun hideLoading() {
-    swiperefreshlayout_video.isRefreshing = false
+    with(swiperefreshlayout_video) {
+      isEnabled = false
+      isRefreshing = false
+    }
   }
 
   override fun showLoading() {
-    swiperefreshlayout_video.isRefreshing = true
+    with(swiperefreshlayout_video) {
+      isEnabled = true
+      isRefreshing = true
+    }
   }
 
   override fun setupAdListener() {
@@ -124,6 +157,12 @@ class VideoFragment : BaseFragment(),
     intent.putExtra("url", url)
     intent.putExtra("title", title)
     startActivity(intent)
+  }
+
+  override fun addEvent() {
+    fab_video.setOnClickListener {
+      recyclerview_video.smoothScrollToPosition(0)
+    }
   }
 
   override fun onLoadMore() {

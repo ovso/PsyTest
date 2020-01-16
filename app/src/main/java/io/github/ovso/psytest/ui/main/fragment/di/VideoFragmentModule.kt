@@ -4,7 +4,6 @@ import dagger.Module
 import dagger.Provides
 import io.github.ovso.psytest.data.network.SearchRequest
 import io.github.ovso.psytest.data.network.model.SearchItem
-import io.github.ovso.psytest.ui.main.fragment.VideoFragment
 import io.github.ovso.psytest.ui.main.fragment.VideoFragmentPresenter
 import io.github.ovso.psytest.ui.main.fragment.VideoFragmentPresenterImpl
 import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapter

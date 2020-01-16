@@ -5,6 +5,8 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import io.github.ovso.psytest.R
 import io.github.ovso.psytest.ui.base.view.BaseActivity
 import io.github.ovso.psytest.ui.base.view.MyAdView
@@ -106,4 +108,5 @@ class MainActivity : BaseActivity(),
     drawer.closeDrawer(GravityCompat.START)
     return true
   }
+
 }
