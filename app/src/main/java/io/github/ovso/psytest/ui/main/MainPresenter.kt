@@ -3,6 +3,7 @@ package io.github.ovso.psytest.ui.main
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
+import io.github.ovso.psytest.ui.main.rvadapter.MainItem
 
 interface MainPresenter : LifecycleObserver {
 
@@ -25,8 +26,8 @@ interface MainPresenter : LifecycleObserver {
 
     fun showTitle(title: String)
 
-    fun showBannerAd()
-
-    fun changeTheme()
+    fun setupRv()
+    fun loadAd()
+    fun submitList(it: List<MainItem>)
   }
 }

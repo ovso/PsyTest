@@ -9,7 +9,9 @@ import io.github.ovso.psytest.ui.main.MainPresenterImpl
 import io.github.ovso.psytest.ui.main.adapter.MainAdapterDataModel
 import io.github.ovso.psytest.ui.main.adapter.MainAdapterView
 import io.github.ovso.psytest.ui.main.adapter.MainPagerAdapter
+import io.github.ovso.psytest.ui.main.rvadapter.MainRvAdapter
 import io.github.ovso.psytest.utils.ResourceProvider
+import io.github.ovso.psytest.utils.SchedulersFacade
 import javax.inject.Singleton
 
 @Module
@@ -19,9 +21,9 @@ class MainActivityModule {
     view: MainPresenter.View,
     resourceProvider: ResourceProvider,
     adapterDataModel: MainAdapterDataModel,
-    lifecycle: Lifecycle
+    lifecycle: Lifecycle, schedulers: SchedulersFacade
   ): MainPresenter {
-    val presenter = MainPresenterImpl(view, resourceProvider, adapterDataModel)
+    val presenter = MainPresenterImpl(view, resourceProvider, adapterDataModel,schedulers)
     lifecycle.addObserver(presenter)
     return presenter
   }
@@ -42,5 +44,9 @@ class MainActivityModule {
 
   @Provides internal fun provideMainLifecycle(act: MainActivity): Lifecycle {
     return act.lifecycle
+  }
+
+  @Singleton @Provides internal fun provideMainAdapter(): MainRvAdapter {
+    return MainRvAdapter()
   }
 }

@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import io.github.ovso.psytest.data.network.model.SearchItem
 import io.github.ovso.psytest.ui.base.interfaces.OnEndlessRecyclerScrollListener
 import io.github.ovso.psytest.ui.base.interfaces.OnRecyclerViewItemClickListener
-import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapter
+import io.github.ovso.psytest.ui.video.adapter.VideoAdapter
 import io.github.ovso.psytest.utils.ObjectUtils
 
 class VideoRecyclerView : RecyclerView {

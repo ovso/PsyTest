@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="io.github.ovso.psytest">
 
-  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.INTERNET" />
 
   <application
       android:name=".App"
@@ -15,33 +15,29 @@
       android:supportsRtl="true"
       android:theme="@style/AppTheme"
       android:usesCleartextTraffic="true"
-      tools:ignore="GoogleAppIndexingWarning">
+      tools:ignore="GoogleAppIndexingWarning"
+      tools:targetApi="m">
     <meta-data
         android:name="com.google.android.gms.ads.AD_MANAGER_APP"
-        android:value="true"/>
+        android:value="true" />
 
     <activity
         android:name=".ui.main.MainActivity"
         android:label="@string/app_name"
-        android:screenOrientation="portrait"
-        android:theme="@style/SplashTheme">
+        android:screenOrientation="portrait">
       <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
+        <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.LAUNCHER"/>
+        <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
     <activity
-        android:name=".ui.video.VideoActivity"
+        android:name=".ui.player.PlayerActivity"
         android:configChanges="keyboardHidden|orientation|screenSize"
-        android:screenOrientation="sensorPortrait"
-        android:theme="@android:style/Theme.Black.NoTitleBar">
-    </activity>
+        android:screenOrientation="sensorPortrait" />
     <activity
         android:name=".ui.web.WebActivity"
-        android:label="@string/title_activity_web"
-        android:theme="@style/AppTheme.NoActionBar">
-    </activity>
+        android:label="@string/title_activity_web" />
   </application>
 
 </manifest>

@@ -4,6 +4,13 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import io.github.ovso.psytest.utils.ResourceProvider;
+import io.github.ovso.psytest.utils.SchedulersFacade;
+import io.github.ovso.psytest.utils.TestSchedulers;
+import io.reactivex.Observable;
+import io.reactivex.internal.schedulers.TrampolineScheduler;
+import io.reactivex.schedulers.TestScheduler;
+import java.io.PrintStream;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -22,5 +29,19 @@ public class ExampleInstrumentedTest {
     Context appContext = InstrumentationRegistry.getTargetContext();
 
     assertEquals("io.github.ovso.psytest", appContext.getPackageName());
+  }
+
+  @Test
+  public void resourceTest() {
+    Context appContext = InstrumentationRegistry.getTargetContext();
+    ResourceProvider resourceProvider = new ResourceProvider(appContext);
+    String[] stringArray = resourceProvider.getStringArray(R.array.tabs);
+    PrintStream out = System.out;
+
+    TestSchedulers schedulers = new TestSchedulers();
+    Observable.fromArray(stringArray)
+        .subscribeOn(schedulers.io())
+        .observeOn(schedulers.ui())
+        .subscribe(out::println);
   }
 }

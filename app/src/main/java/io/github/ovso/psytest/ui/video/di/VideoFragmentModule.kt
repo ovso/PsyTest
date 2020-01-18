@@ -1,14 +1,14 @@
-package io.github.ovso.psytest.ui.main.fragment.di
+package io.github.ovso.psytest.ui.video.di
 
 import dagger.Module
 import dagger.Provides
 import io.github.ovso.psytest.data.network.SearchRequest
 import io.github.ovso.psytest.data.network.model.SearchItem
-import io.github.ovso.psytest.ui.main.fragment.VideoFragmentPresenter
-import io.github.ovso.psytest.ui.main.fragment.VideoFragmentPresenterImpl
-import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapter
-import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapterDataModel
-import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapterView
+import io.github.ovso.psytest.ui.video.VideoFragmentPresenter
+import io.github.ovso.psytest.ui.video.VideoFragmentPresenterImpl
+import io.github.ovso.psytest.ui.video.adapter.VideoAdapter
+import io.github.ovso.psytest.ui.video.adapter.VideoAdapterDataModel
+import io.github.ovso.psytest.ui.video.adapter.VideoAdapterView
 import io.github.ovso.psytest.utils.ResourceProvider
 import io.github.ovso.psytest.utils.SchedulersFacade
 import javax.inject.Singleton

@@ -1,21 +1,28 @@
 package io.github.ovso.psytest.ui.main
 
+import android.graphics.drawable.ColorDrawable
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
+import com.google.android.gms.ads.AdRequest
 import io.github.ovso.psytest.R
 import io.github.ovso.psytest.ui.base.view.BaseActivity
-import io.github.ovso.psytest.ui.base.view.MyAdView
 import io.github.ovso.psytest.ui.main.adapter.MainAdapterView
 import io.github.ovso.psytest.ui.main.adapter.MainPagerAdapter
+import io.github.ovso.psytest.ui.main.rvadapter.MainItem
+import io.github.ovso.psytest.ui.main.rvadapter.MainRvAdapter
+import io.github.ovso.psytest.utils.ResourceProvider
 import kotlinx.android.synthetic.main.activity_main.nav_view
 import kotlinx.android.synthetic.main.app_bar_main.tab_layout
+import kotlinx.android.synthetic.main.content_main.rv_main
 import kotlinx.android.synthetic.main.content_main.view_pager
-import kotlinx.android.synthetic.main.layout_banner_container.framelayout_all_adscontainer
+import kotlinx.android.synthetic.main.layout_ads_banner.all_ads_banner
+import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(),
@@ -24,13 +31,19 @@ class MainActivity : BaseActivity(),
   override val layoutResID: Int
     get() = R.layout.activity_main
 
-  var presenter: MainPresenter? = null
-    @Inject set
-  var pagerAdapter: MainPagerAdapter? = null
-    @Inject set
-  var adapterView: MainAdapterView? = null
-    @Inject set
+  @Inject
+  lateinit var presenter: MainPresenter
+  @Inject
+  lateinit var pagerAdapter: MainPagerAdapter
 
+  @Inject
+  lateinit var adapterView: MainAdapterView
+
+  @Inject
+  lateinit var adRequest: AdRequest
+
+  @Inject
+  lateinit var adapter: MainRvAdapter
 
   override fun setupView() {
 //    val toggle = ActionBarDrawerToggle(
@@ -62,19 +75,26 @@ class MainActivity : BaseActivity(),
   }
 
   override fun refresh() {
-    adapterView!!.refresh()
+    adapterView.refresh()
   }
 
   override fun showTitle(title: String) {
     super.setTitle(title)
   }
 
-  override fun showBannerAd() {
-    framelayout_all_adscontainer.addView(MyAdView.getAdmobAdView(applicationContext))
+  override fun setupRv() {
+    with(rv_main) {
+      addItemDecoration(DividerItemDecoration(baseContext, RecyclerView.VERTICAL))
+      adapter = this@MainActivity.adapter
+    }
   }
 
-  override fun changeTheme() {
-    setTheme(R.style.AppTheme_NoActionBar)
+  override fun loadAd() {
+    all_ads_banner.loadAd(adRequest)
+  }
+
+  override fun submitList(it: List<MainItem>) {
+    adapter.submitList(it)
   }
 
   override fun onBackPressed() {
@@ -90,18 +110,25 @@ class MainActivity : BaseActivity(),
     // Handle navigation view item clicks here.
     val id = item.itemId
 
-    if (id == R.id.nav_camera) {
-      // Handle the camera action
-    } else if (id == R.id.nav_gallery) {
+    when (id) {
+      R.id.nav_camera -> {
+        // Handle the camera action
+      }
+      R.id.nav_gallery -> {
 
-    } else if (id == R.id.nav_slideshow) {
+      }
+      R.id.nav_slideshow -> {
 
-    } else if (id == R.id.nav_manage) {
+      }
+      R.id.nav_manage -> {
 
-    } else if (id == R.id.nav_share) {
+      }
+      R.id.nav_share -> {
 
-    } else if (id == R.id.nav_send) {
+      }
+      R.id.nav_send -> {
 
+      }
     }
 
     val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)

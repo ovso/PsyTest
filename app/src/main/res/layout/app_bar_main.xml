@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         app:tabMode="scrollable"
         app:tabTextAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:visibility="gone"
         />
   </android.support.design.widget.AppBarLayout>
 
