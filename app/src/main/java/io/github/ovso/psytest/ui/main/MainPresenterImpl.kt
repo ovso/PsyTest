@@ -40,7 +40,7 @@ class MainPresenterImpl(
   }
 
   private fun setItems() {
-    val titles = resourceProvider.getStringArray(R.array.q)
+    val titles = resourceProvider.getStringArray(R.array.tabs)
     compositeDisposable += Observable.fromIterable(titles.toList())
         .map { MainItem(it) }
         .toList()

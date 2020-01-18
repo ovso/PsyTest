@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string-array name="tabs">
-    <item>통합</item>
-    <item>연애</item>
-    <item>성격</item>
-    <item>혈액형</item>
-    <item>사랑</item>
-    <item>직업</item>
-    <item>그림</item>
-    <item>결혼</item>
-    <item>동물</item>
-    <item>색깔</item>
-    <item>전생</item>
-    <item>게임</item>
+    <item>통합 심리테스트</item>
+    <item>연애 심리테스트</item>
+    <item>성격 심리테스트</item>
+    <item>혈액형 심리테스트</item>
+    <item>사랑 심리테스트</item>
+    <item>직업 심리테스트</item>
+    <item>그림 심리테스트</item>
+    <item>결혼 심리테스트</item>
+    <item>동물 심리테스트</item>
+    <item>색깔 심리테스트</item>
+    <item>전생 심리테스트</item>
+    <item>게임 심리테스트</item>
   </string-array>
   <string-array name="q">
     <item>심리테스트</item>
