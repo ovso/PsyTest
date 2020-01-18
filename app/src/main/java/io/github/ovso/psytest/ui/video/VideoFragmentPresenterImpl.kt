@@ -1,4 +1,4 @@
-package io.github.ovso.psytest.ui.main.fragment
+package io.github.ovso.psytest.ui.video
 
 import android.content.ActivityNotFoundException
 import android.os.Bundle
@@ -8,7 +8,8 @@ import io.github.ovso.psytest.data.KeyName
 import io.github.ovso.psytest.data.network.SearchRequest
 import io.github.ovso.psytest.data.network.model.Search
 import io.github.ovso.psytest.data.network.model.SearchItem
-import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapterDataModel
+import io.github.ovso.psytest.ui.video.VideoFragmentPresenter.View
+import io.github.ovso.psytest.ui.video.adapter.VideoAdapterDataModel
 import io.github.ovso.psytest.utils.ResourceProvider
 import io.github.ovso.psytest.utils.SchedulersFacade
 import io.reactivex.SingleObserver
@@ -19,7 +20,7 @@ import java.util.Collections.shuffle
 import kotlin.random.Random
 
 class VideoFragmentPresenterImpl(
-  private val view: VideoFragmentPresenter.View,
+  private val view: View,
   private val searchRequest: SearchRequest,
   private val resourceProvider: ResourceProvider,
   private val schedulersFacade: SchedulersFacade,
@@ -144,8 +145,13 @@ class VideoFragmentPresenterImpl(
   }
 
   override fun onOptionsItemSelected(itemId: Int): Boolean {
-    val url = Portal.toUrl(itemId, q)
-    val title = Portal.toType(itemId)
+    val url =
+      Portal.toUrl(
+          itemId, q
+      )
+    val title = Portal.toType(
+        itemId
+    )
         .toString()
     view.navigateToWeb(url, title)
     return true
@@ -175,11 +181,14 @@ class VideoFragmentPresenterImpl(
         act_id: Int,
         q: String?
       ): String {
-        val portal = toType(act_id)
+        val portal =
+          toType(
+              act_id
+          )
         return when (portal) {
-          GOOGLE -> Portal.GOOGLE.url + q!! + "&tbm=vid"
-          NAVER -> Portal.NAVER.url + q!!
-          DAUM -> Portal.DAUM.url + q!!
+          GOOGLE -> GOOGLE.url + q!! + "&tbm=vid"
+          NAVER -> NAVER.url + q!!
+          DAUM -> DAUM.url + q!!
         }
       }
     }

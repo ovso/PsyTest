@@ -27,6 +27,6 @@ interface MainPresenter : LifecycleObserver {
 
     fun showBannerAd()
 
-    fun changeTheme()
+    fun setupRv()
   }
 }

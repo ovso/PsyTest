@@ -1,4 +1,4 @@
-package io.github.ovso.psytest.ui.main.fragment
+package io.github.ovso.psytest.ui.video
 
 import android.app.AlertDialog
 import android.content.Context
@@ -17,9 +17,10 @@ import io.github.ovso.psytest.data.network.model.SearchItem
 import io.github.ovso.psytest.ui.base.interfaces.OnEndlessRecyclerScrollListener
 import io.github.ovso.psytest.ui.base.interfaces.OnRecyclerViewItemClickListener
 import io.github.ovso.psytest.ui.base.view.BaseFragment
-import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapter
-import io.github.ovso.psytest.ui.main.fragment.adapter.VideoAdapterView
-import io.github.ovso.psytest.ui.video.VideoActivity
+import io.github.ovso.psytest.ui.video.VideoFragmentPresenter.View
+import io.github.ovso.psytest.ui.video.adapter.VideoAdapter
+import io.github.ovso.psytest.ui.video.adapter.VideoAdapterView
+import io.github.ovso.psytest.ui.player.PlayerActivity
 import io.github.ovso.psytest.ui.web.WebActivity
 import kotlinx.android.synthetic.main.fragment_video.fab_video
 import kotlinx.android.synthetic.main.fragment_video.recyclerview_video
@@ -28,7 +29,7 @@ import java.util.Objects
 import javax.inject.Inject
 
 class VideoFragment : BaseFragment(),
-    VideoFragmentPresenter.View,
+    View,
     OnRecyclerViewItemClickListener<SearchItem>,
     OnEndlessRecyclerScrollListener.OnLoadMoreListener {
   override val layoutResID: Int = R.layout.fragment_video
@@ -100,7 +101,7 @@ class VideoFragment : BaseFragment(),
   }
 
   override fun showVideo(videoId: String?) {
-    val intent = Intent(context, VideoActivity::class.java)
+    val intent = Intent(context, PlayerActivity::class.java)
     intent.putExtra("video_id", videoId)
     startActivity(intent)
   }

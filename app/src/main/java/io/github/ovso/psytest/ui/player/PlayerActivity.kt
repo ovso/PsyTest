@@ -1,4 +1,4 @@
-package io.github.ovso.psytest.ui.video
+package io.github.ovso.psytest.ui.player
 
 import android.os.Bundle
 import android.widget.Toast
@@ -10,7 +10,7 @@ import io.github.ovso.psytest.Security
 import io.github.ovso.psytest.ui.base.view.AdsActivity
 import kotlinx.android.synthetic.main.activity_fullscreen_video.youtube_fragment
 
-class VideoActivity : AdsActivity() {
+class PlayerActivity : AdsActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

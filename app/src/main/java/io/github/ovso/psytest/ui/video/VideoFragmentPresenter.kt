@@ -1,4 +1,4 @@
-package io.github.ovso.psytest.ui.main.fragment
+package io.github.ovso.psytest.ui.video
 
 import android.os.Bundle
 import io.github.ovso.psytest.data.network.model.SearchItem

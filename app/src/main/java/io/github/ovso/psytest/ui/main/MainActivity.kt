@@ -5,8 +5,6 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
 import io.github.ovso.psytest.R
 import io.github.ovso.psytest.ui.base.view.BaseActivity
 import io.github.ovso.psytest.ui.base.view.MyAdView
@@ -30,7 +28,6 @@ class MainActivity : BaseActivity(),
     @Inject set
   var adapterView: MainAdapterView? = null
     @Inject set
-
 
   override fun setupView() {
 //    val toggle = ActionBarDrawerToggle(
@@ -73,8 +70,8 @@ class MainActivity : BaseActivity(),
     framelayout_all_adscontainer.addView(MyAdView.getAdmobAdView(applicationContext))
   }
 
-  override fun changeTheme() {
-    setTheme(R.style.AppTheme_NoActionBar)
+  override fun setupRv() {
+
   }
 
   override fun onBackPressed() {
@@ -90,18 +87,25 @@ class MainActivity : BaseActivity(),
     // Handle navigation view item clicks here.
     val id = item.itemId
 
-    if (id == R.id.nav_camera) {
-      // Handle the camera action
-    } else if (id == R.id.nav_gallery) {
+    when (id) {
+      R.id.nav_camera -> {
+        // Handle the camera action
+      }
+      R.id.nav_gallery -> {
 
-    } else if (id == R.id.nav_slideshow) {
+      }
+      R.id.nav_slideshow -> {
 
-    } else if (id == R.id.nav_manage) {
+      }
+      R.id.nav_manage -> {
 
-    } else if (id == R.id.nav_share) {
+      }
+      R.id.nav_share -> {
 
-    } else if (id == R.id.nav_send) {
+      }
+      R.id.nav_send -> {
 
+      }
     }
 
     val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)

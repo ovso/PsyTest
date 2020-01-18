@@ -1,4 +1,4 @@
-package io.github.ovso.psytest.ui.main.fragment.adapter
+package io.github.ovso.psytest.ui.video.adapter
 
 interface VideoAdapterView {
   fun refresh()
