@@ -27,7 +27,7 @@ interface MainPresenter : LifecycleObserver {
     fun showTitle(title: String)
 
     fun setupRv()
-    fun setupAds()
+    fun loadAd()
     fun submitList(it: List<MainItem>)
   }
 }

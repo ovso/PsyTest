@@ -1,5 +1,7 @@
 package io.github.ovso.psytest.ui.main
 
+import android.arch.lifecycle.Lifecycle.Event.ON_DESTROY
+import android.arch.lifecycle.OnLifecycleEvent
 import io.github.ovso.psytest.R
 import io.github.ovso.psytest.ui.main.adapter.MainAdapterDataModel
 import io.github.ovso.psytest.ui.main.rvadapter.MainItem
@@ -17,7 +19,7 @@ class MainPresenterImpl(
   private val schedulers: SchedulersFacade
 ) : MainPresenter {
 
-  val compositeDisposable = CompositeDisposable()
+  private val compositeDisposable = CompositeDisposable()
 
 /*
   init {
@@ -33,12 +35,12 @@ class MainPresenterImpl(
   override fun onCreate() {
     view.showTitle(resourceProvider.getString(R.string.app_name))
     view.setupRv()
-    view.setupAds()
+    view.loadAd()
     setItems()
   }
 
   private fun setItems() {
-    val titles = resourceProvider.getStringArray(R.array.tabs)
+    val titles = resourceProvider.getStringArray(R.array.q)
     compositeDisposable += Observable.fromIterable(titles.toList())
         .map { MainItem(it) }
         .toList()
@@ -58,6 +60,11 @@ class MainPresenterImpl(
     for (i in tabNames.indices) {
       view.showTabName(i, tabNames[i])
     }
+  }
+
+  @OnLifecycleEvent(ON_DESTROY)
+  private fun onDestroy() {
+    compositeDisposable.clear()
   }
 }
 

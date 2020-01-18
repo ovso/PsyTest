@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string-array name="tabs">
-    <item>전체</item>
+    <item>통합</item>
     <item>연애</item>
     <item>성격</item>
     <item>혈액형</item>

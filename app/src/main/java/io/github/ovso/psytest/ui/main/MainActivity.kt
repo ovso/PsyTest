@@ -1,9 +1,13 @@
 package io.github.ovso.psytest.ui.main
 
+import android.graphics.drawable.ColorDrawable
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import com.google.android.gms.ads.AdRequest
 import io.github.ovso.psytest.R
@@ -79,12 +83,13 @@ class MainActivity : BaseActivity(),
   }
 
   override fun setupRv() {
-    rv_main.adapter = adapter
+    with(rv_main) {
+      addItemDecoration(DividerItemDecoration(baseContext, RecyclerView.VERTICAL))
+      adapter = this@MainActivity.adapter
+    }
   }
 
-  override fun setupAds() {
-    Timber.d("setupAds!!! = ${adRequest?.contentUrl}")
-    Timber.d("setupAds adRequest = ${adRequest.toString()}")
+  override fun loadAd() {
     all_ads_banner.loadAd(adRequest)
   }
 
