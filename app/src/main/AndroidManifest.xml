@@ -34,12 +34,10 @@
     <activity
         android:name=".ui.player.PlayerActivity"
         android:configChanges="keyboardHidden|orientation|screenSize"
-        android:screenOrientation="sensorPortrait"
-        android:theme="@android:style/Theme.Black.NoTitleBar" />
+        android:screenOrientation="sensorPortrait" />
     <activity
         android:name=".ui.web.WebActivity"
-        android:label="@string/title_activity_web"
-        android:theme="@style/AppTheme.NoActionBar" />
+        android:label="@string/title_activity_web" />
   </application>
 
 </manifest>

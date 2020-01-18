@@ -11,18 +11,19 @@ class MainPresenterImpl(
 ) : MainPresenter {
 
   init {
-    view.showTitle(resourceProvider.getString(R.string.app_name))
-    view.setupRv()
 //    view.setupView()
 //    view.setupTabLayout()
 //    view.setupViewPager()
 //    adapterDataModel.createItems(resourceProvider.getStringArray(R.array.tabs).size)
 //    view.refresh()
 //    showTabNames()
-    view.showBannerAd()
   }
 
   override fun onCreate() {
+    view.showTitle(resourceProvider.getString(R.string.app_name))
+    view.setupRv()
+    view.setupAds()
+
   }
 
   private fun showTabNames() {

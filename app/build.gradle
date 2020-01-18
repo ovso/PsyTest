@@ -52,7 +52,15 @@ android {
   }
 
   buildTypes {
+
+    debug {
+      resValue("string", "ads_app_id", "ca-app-pub-3940256099942544~3347511713")
+      resValue("string", "ads_banner_unit_id", "ca-app-pub-3940256099942544/6300978111")
+    }
     release {
+      resValue("string", "ads_app_id", "ca-app-pub-8679189423397017~4129853213")
+      resValue("string", "ads_banner_unit_id", "ca-app-pub-8679189423397017/1419929392")
+
       signingConfig signingConfigs.release
       minifyEnabled false
 
@@ -95,11 +103,9 @@ dependencies {
   implementation fileTree(include: ['*.jar'], dir: 'libs')
   implementation files('libs/YouTubeAndroidPlayerApi.jar')
 
-
   testImplementation 'junit:junit:4.12'
   androidTestImplementation 'com.android.support.test:runner:1.0.2'
   androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
 
   implementation deps.support.v7
   implementation deps.support.v4

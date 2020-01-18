@@ -5,15 +5,16 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.view.MenuItem
+import com.google.android.gms.ads.AdRequest
 import io.github.ovso.psytest.R
 import io.github.ovso.psytest.ui.base.view.BaseActivity
-import io.github.ovso.psytest.ui.base.view.MyAdView
 import io.github.ovso.psytest.ui.main.adapter.MainAdapterView
 import io.github.ovso.psytest.ui.main.adapter.MainPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.nav_view
 import kotlinx.android.synthetic.main.app_bar_main.tab_layout
 import kotlinx.android.synthetic.main.content_main.view_pager
-import kotlinx.android.synthetic.main.layout_banner_container.framelayout_all_adscontainer
+import kotlinx.android.synthetic.main.layout_ads_banner.all_ads_banner
+import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(),
@@ -22,12 +23,16 @@ class MainActivity : BaseActivity(),
   override val layoutResID: Int
     get() = R.layout.activity_main
 
-  var presenter: MainPresenter? = null
-    @Inject set
-  var pagerAdapter: MainPagerAdapter? = null
-    @Inject set
-  var adapterView: MainAdapterView? = null
-    @Inject set
+  @Inject
+  lateinit var presenter: MainPresenter
+  @Inject
+  lateinit var pagerAdapter: MainPagerAdapter
+
+  @Inject
+  lateinit var adapterView: MainAdapterView
+
+  @Inject
+  lateinit var adRequest: AdRequest
 
   override fun setupView() {
 //    val toggle = ActionBarDrawerToggle(
@@ -59,19 +64,21 @@ class MainActivity : BaseActivity(),
   }
 
   override fun refresh() {
-    adapterView!!.refresh()
+    adapterView.refresh()
   }
 
   override fun showTitle(title: String) {
     super.setTitle(title)
   }
 
-  override fun showBannerAd() {
-    framelayout_all_adscontainer.addView(MyAdView.getAdmobAdView(applicationContext))
-  }
-
   override fun setupRv() {
 
+  }
+
+  override fun setupAds() {
+    Timber.d("setupAds!!! = ${adRequest?.contentUrl}")
+    Timber.d("setupAds adRequest = ${adRequest.toString()}")
+    all_ads_banner.loadAd(adRequest)
   }
 
   override fun onBackPressed() {
