@@ -10,8 +10,12 @@ import io.github.ovso.psytest.R
 import io.github.ovso.psytest.ui.base.view.BaseActivity
 import io.github.ovso.psytest.ui.main.adapter.MainAdapterView
 import io.github.ovso.psytest.ui.main.adapter.MainPagerAdapter
+import io.github.ovso.psytest.ui.main.rvadapter.MainItem
+import io.github.ovso.psytest.ui.main.rvadapter.MainRvAdapter
+import io.github.ovso.psytest.utils.ResourceProvider
 import kotlinx.android.synthetic.main.activity_main.nav_view
 import kotlinx.android.synthetic.main.app_bar_main.tab_layout
+import kotlinx.android.synthetic.main.content_main.rv_main
 import kotlinx.android.synthetic.main.content_main.view_pager
 import kotlinx.android.synthetic.main.layout_ads_banner.all_ads_banner
 import timber.log.Timber
@@ -33,6 +37,9 @@ class MainActivity : BaseActivity(),
 
   @Inject
   lateinit var adRequest: AdRequest
+
+  @Inject
+  lateinit var adapter: MainRvAdapter
 
   override fun setupView() {
 //    val toggle = ActionBarDrawerToggle(
@@ -72,13 +79,17 @@ class MainActivity : BaseActivity(),
   }
 
   override fun setupRv() {
-
+    rv_main.adapter = adapter
   }
 
   override fun setupAds() {
     Timber.d("setupAds!!! = ${adRequest?.contentUrl}")
     Timber.d("setupAds adRequest = ${adRequest.toString()}")
     all_ads_banner.loadAd(adRequest)
+  }
+
+  override fun submitList(it: List<MainItem>) {
+    adapter.submitList(it)
   }
 
   override fun onBackPressed() {
