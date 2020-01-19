@@ -40,7 +40,7 @@ class VideoFragmentPresenterImpl(
     view.setupAdListener()
     view.addEvent()
     position = args.getInt(KeyName.POSITION.get())
-    q = resourceProvider.getStringArray(R.array.q)[position]
+    q = resourceProvider.getStringArray(R.array.queries)[position]
     searchRequest.getResult(q, nextPageToken)
         .map {
           val newItems = it.items?.toMutableList()
@@ -118,7 +118,7 @@ class VideoFragmentPresenterImpl(
     adapterDataModel.clear()
     view.refresh()
     nextPageToken = null
-    q = resourceProvider.getStringArray(R.array.q)[position]
+    q = resourceProvider.getStringArray(R.array.queries)[position]
     searchRequest.getResult(q, nextPageToken)
         .subscribeOn(schedulersFacade.io())
         .observeOn(schedulersFacade.ui())
