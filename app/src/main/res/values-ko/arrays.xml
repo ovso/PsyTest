@@ -14,7 +14,7 @@
     <item>전생 심리테스트</item>
     <item>게임 심리테스트</item>
   </string-array>
-  <string-array name="q">
+  <string-array name="queries">
     <item>심리테스트</item>
     <item>심리테스트 연애</item>
     <item>심리테스트 성격</item>

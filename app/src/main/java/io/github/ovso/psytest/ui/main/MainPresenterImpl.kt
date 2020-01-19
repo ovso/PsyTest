@@ -3,6 +3,8 @@ package io.github.ovso.psytest.ui.main
 import android.arch.lifecycle.Lifecycle.Event.ON_DESTROY
 import android.arch.lifecycle.OnLifecycleEvent
 import io.github.ovso.psytest.R
+import io.github.ovso.psytest.R.array
+import io.github.ovso.psytest.exts.plusAssign
 import io.github.ovso.psytest.ui.main.adapter.MainAdapterDataModel
 import io.github.ovso.psytest.ui.main.rvadapter.MainItem
 import io.github.ovso.psytest.utils.ResourceProvider
@@ -10,7 +12,7 @@ import io.github.ovso.psytest.utils.SchedulersFacade
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import timber.log.Timber
+import io.reactivex.functions.BiFunction
 
 class MainPresenterImpl(
   private val view: MainPresenter.View,
@@ -36,40 +38,31 @@ class MainPresenterImpl(
     view.showTitle(resourceProvider.getString(R.string.app_name))
     view.setupRv()
     view.loadAd()
-    setItems()
+    fetchList()
   }
 
-  private fun setItems() {
-    val titles = resourceProvider.getStringArray(R.array.tabs)
-    compositeDisposable += Observable.fromIterable(titles.toList())
-        .map { MainItem(it) }
-        .toList()
-        .subscribeOn(schedulers.io())
-        .observeOn(schedulers.ui())
-        .subscribe({
-          view.submitList(it)
-        }, {
-          Timber.e(it)
-        })
+  private fun fetchList() {
+    val titles = Observable.fromIterable(resourceProvider.getStringArray(array.tabs).toList())
+    val queries = Observable.fromIterable(resourceProvider.getStringArray(array.queries).toList())
 
-//    Single.concatArray(titles)
-  }
-
-  private fun showTabNames() {
-    val tabNames = resourceProvider.getStringArray(R.array.tabs)
-    for (i in tabNames.indices) {
-      view.showTabName(i, tabNames[i])
+    fun onSuccess(items: List<MainItem>) {
+      view.submitList(items)
     }
+
+    fun onFailure(t: Throwable) {
+      println(t)
+    }
+
+    compositeDisposable += titles
+        .zipWith(
+            queries, BiFunction<String, String, MainItem> { name, query -> MainItem(name, query) }
+        )
+        .toList()
+        .subscribe(::onSuccess, ::onFailure)
   }
 
   @OnLifecycleEvent(ON_DESTROY)
   private fun onDestroy() {
     compositeDisposable.clear()
-  }
-}
-
-private operator fun CompositeDisposable.plusAssign(subscribe: Disposable?) {
-  subscribe?.let {
-    add(subscribe)
   }
 }

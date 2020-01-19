@@ -16,7 +16,6 @@ import io.reactivex.SingleObserver
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
-import java.util.Collections.shuffle
 import kotlin.random.Random
 
 class VideoFragmentPresenterImpl(
@@ -33,18 +32,18 @@ class VideoFragmentPresenterImpl(
   private var position: Int = 0
 
   override fun onActivityCreated(args: Bundle) {
-    Timber.d("onActivityCreated")
     view.setupRecyclerView()
     view.setupSwipeRefresh()
     view.showLoading()
     view.setupAdListener()
     view.addEvent()
+    view.showTitle(args.getString("title"))
     position = args.getInt(KeyName.POSITION.get())
-    q = resourceProvider.getStringArray(R.array.q)[position]
+    q = args.getString("query")
     searchRequest.getResult(q, nextPageToken)
         .map {
-          val newItems = it.items?.toMutableList()
-          it.items = newItems?.shuffled(Random.Default)
+//          val newItems = it.items?.toMutableList()
+//          it.items = newItems?.shuffled(Random.Default)
           it
         }
         .subscribeOn(schedulersFacade.io())
@@ -87,8 +86,8 @@ class VideoFragmentPresenterImpl(
     if (!TextUtils.isEmpty(nextPageToken) && !TextUtils.isEmpty(q)) {
       searchRequest.getResult(q, nextPageToken)
           .map {
-            it.items = it.items?.toMutableList()
-                ?.shuffled(Random.Default)
+            //            it.items = it.items?.toMutableList()
+//                ?.shuffled(Random.Default)
             it
           }
           .subscribeOn(schedulersFacade.io())
@@ -118,7 +117,7 @@ class VideoFragmentPresenterImpl(
     adapterDataModel.clear()
     view.refresh()
     nextPageToken = null
-    q = resourceProvider.getStringArray(R.array.q)[position]
+    q = resourceProvider.getStringArray(R.array.queries)[position]
     searchRequest.getResult(q, nextPageToken)
         .subscribeOn(schedulersFacade.io())
         .observeOn(schedulersFacade.ui())
@@ -130,7 +129,7 @@ class VideoFragmentPresenterImpl(
           override fun onSuccess(search: Search) {
             nextPageToken = search.nextPageToken
             val items = search.items
-            shuffle(items)
+//            shuffle(items)
             adapterDataModel.addAll(items)
             view.refresh()
             view.setLoaded()
@@ -168,7 +167,7 @@ class VideoFragmentPresenterImpl(
     companion object {
 
       fun toType(id: Int): Portal {
-        for (portal in Portal.values()) {
+        for (portal in values()) {
           if (portal.id == id) {
             return portal
           }

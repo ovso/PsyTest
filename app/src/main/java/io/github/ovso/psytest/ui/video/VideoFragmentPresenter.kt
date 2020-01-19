@@ -43,5 +43,6 @@ interface VideoFragmentPresenter {
     )
 
     fun addEvent()
+    fun showTitle(text: String?)
   }
 }

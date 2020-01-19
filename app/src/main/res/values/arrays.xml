@@ -14,7 +14,7 @@
     <item>A former life</item>
     <item>Game</item>
   </string-array>
-  <string-array name="q">
+  <string-array name="queries">
     <item>Psycology test</item>
     <item>romantic psychology test</item>
     <item>Personality psychology test</item>
