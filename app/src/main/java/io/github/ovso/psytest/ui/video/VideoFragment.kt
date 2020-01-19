@@ -8,19 +8,16 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.OnScrollListener
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import com.google.android.gms.ads.AdListener
 import io.github.ovso.psytest.R
 import io.github.ovso.psytest.data.network.model.SearchItem
 import io.github.ovso.psytest.ui.base.interfaces.OnEndlessRecyclerScrollListener
 import io.github.ovso.psytest.ui.base.interfaces.OnRecyclerViewItemClickListener
 import io.github.ovso.psytest.ui.base.view.BaseFragment
+import io.github.ovso.psytest.ui.player.PlayerActivity
 import io.github.ovso.psytest.ui.video.VideoFragmentPresenter.View
 import io.github.ovso.psytest.ui.video.adapter.VideoAdapter
 import io.github.ovso.psytest.ui.video.adapter.VideoAdapterView
-import io.github.ovso.psytest.ui.player.PlayerActivity
 import io.github.ovso.psytest.ui.web.WebActivity
 import kotlinx.android.synthetic.main.fragment_video.fab_video
 import kotlinx.android.synthetic.main.fragment_video.recyclerview_video
@@ -51,6 +48,8 @@ class VideoFragment : BaseFragment(),
 //  }
 
   override fun onActivityCreate(savedInstanceState: Bundle?) {
+    val title = arguments?.getString("title")
+    val query = arguments?.getString("query")
     presenter!!.onActivityCreated(Objects.requireNonNull<Bundle>(arguments))
   }
 
@@ -74,16 +73,6 @@ class VideoFragment : BaseFragment(),
   }
 
   private val fabScrollListener = object : OnScrollListener() {
-/*
-    override fun onScrolled(
-      recyclerView: RecyclerView,
-      dx: Int,
-      dy: Int
-    ) {
-      super.onScrolled(recyclerView, dx, dy)
-    }
-*/
-
     override fun onScrollStateChanged(
       recyclerView: RecyclerView,
       newState: Int
@@ -166,20 +155,12 @@ class VideoFragment : BaseFragment(),
     }
   }
 
+  override fun showTitle(text: String?) {
+    requireActivity().title = text
+  }
+
   override fun onLoadMore() {
     presenter!!.onLoadMore()
-  }
-
-  override fun onCreateOptionsMenu(
-    menu: Menu?,
-    inflater: MenuInflater?
-  ) {
-    inflater!!.inflate(R.menu.menu_main, menu)
-    super.onCreateOptionsMenu(menu, inflater)
-  }
-
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    return presenter!!.onOptionsItemSelected(item.itemId)
   }
 
   override fun onItemClick(data: SearchItem) {
@@ -189,6 +170,8 @@ class VideoFragment : BaseFragment(),
   companion object {
 
     fun newInstance(args: Bundle): Fragment {
+      val title = args.getString("title")
+      val query = args.getString("query")
       val f = VideoFragment()
       f.arguments = args
       return f
