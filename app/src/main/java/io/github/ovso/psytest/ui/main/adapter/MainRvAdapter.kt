@@ -1,4 +1,4 @@
-package io.github.ovso.psytest.ui.main.rvadapter
+package io.github.ovso.psytest.ui.main.adapter
 
 import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.util.DiffUtil
