@@ -1,4 +1,4 @@
-package io.github.ovso.psytest.ui.main.rvadapter
+package io.github.ovso.psytest.ui.main.adapter
 
 import android.content.Intent
 import android.view.View

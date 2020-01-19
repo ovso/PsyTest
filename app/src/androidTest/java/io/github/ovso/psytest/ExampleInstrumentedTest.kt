@@ -3,7 +3,7 @@ package io.github.ovso.psytest
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import io.github.ovso.psytest.R.array
-import io.github.ovso.psytest.ui.main.rvadapter.MainItem
+import io.github.ovso.psytest.ui.main.adapter.MainItem
 import io.github.ovso.psytest.utils.ResourceProvider
 import io.github.ovso.psytest.utils.TestSchedulers
 import io.reactivex.Observable
