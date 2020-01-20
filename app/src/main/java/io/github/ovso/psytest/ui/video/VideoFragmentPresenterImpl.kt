@@ -16,6 +16,7 @@ import io.reactivex.SingleObserver
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
+import java.util.Collections.shuffle
 import kotlin.random.Random
 
 class VideoFragmentPresenterImpl(
@@ -42,8 +43,7 @@ class VideoFragmentPresenterImpl(
     q = args.getString("query")
     searchRequest.getResult(q, nextPageToken)
         .map {
-//          val newItems = it.items?.toMutableList()
-//          it.items = newItems?.shuffled(Random.Default)
+          shuffle(it.items)
           it
         }
         .subscribeOn(schedulersFacade.io())
@@ -86,8 +86,7 @@ class VideoFragmentPresenterImpl(
     if (!TextUtils.isEmpty(nextPageToken) && !TextUtils.isEmpty(q)) {
       searchRequest.getResult(q, nextPageToken)
           .map {
-            //            it.items = it.items?.toMutableList()
-//                ?.shuffled(Random.Default)
+            shuffle(it.items)
             it
           }
           .subscribeOn(schedulersFacade.io())
@@ -129,7 +128,7 @@ class VideoFragmentPresenterImpl(
           override fun onSuccess(search: Search) {
             nextPageToken = search.nextPageToken
             val items = search.items
-//            shuffle(items)
+            shuffle(items)
             adapterDataModel.addAll(items)
             view.refresh()
             view.setLoaded()
