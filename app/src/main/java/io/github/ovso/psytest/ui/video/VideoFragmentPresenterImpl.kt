@@ -17,7 +17,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
 import java.util.Collections.shuffle
-import kotlin.random.Random
 
 class VideoFragmentPresenterImpl(
   private val view: View,
