@@ -14,4 +14,8 @@
   <string name="no_videos_found">Video not found</string>
   <string name="title_activity_web">WebActivity</string>
   <string name="web_share">사이트 공유</string>
+
+  <string name="title_activity_splash">SplashActivity</string>
+  <string name="dummy_button">Dummy Button</string>
+  <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

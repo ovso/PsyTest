@@ -7,4 +7,6 @@
   <color name="item_background2">#f8bbd0</color>
   <color name="colorLight">#FFF0F0</color>
   <color name="textColor">#363636</color>
+
+  <color name="black_overlay">#66000000</color>
 </resources>

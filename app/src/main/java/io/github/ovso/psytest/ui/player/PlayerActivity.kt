@@ -2,6 +2,7 @@ package io.github.ovso.psytest.ui.player
 
 import android.os.Bundle
 import android.widget.Toast
+import com.google.android.gms.ads.AdRequest
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerFragment
@@ -9,6 +10,7 @@ import io.github.ovso.psytest.R
 import io.github.ovso.psytest.Security
 import io.github.ovso.psytest.ui.base.view.AdsActivity
 import kotlinx.android.synthetic.main.activity_fullscreen_video.youtube_fragment
+import kotlinx.android.synthetic.main.layout_ads_banner.all_ads_banner
 
 class PlayerActivity : AdsActivity() {
 
@@ -37,5 +39,8 @@ class PlayerActivity : AdsActivity() {
           .show()
       finish()
     }
+
+    all_ads_banner.loadAd(AdRequest.Builder().build())
+
   }
 }
