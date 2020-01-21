@@ -2,12 +2,13 @@ package io.github.ovso.psytest.ui.video
 
 import android.content.ActivityNotFoundException
 import android.os.Bundle
-import android.text.TextUtils
 import io.github.ovso.psytest.R
+import io.github.ovso.psytest.Security
 import io.github.ovso.psytest.data.KeyName
 import io.github.ovso.psytest.data.network.SearchRequest
 import io.github.ovso.psytest.data.network.model.Search
 import io.github.ovso.psytest.data.network.model.SearchItem
+import io.github.ovso.psytest.exts.plusAssign
 import io.github.ovso.psytest.ui.video.VideoFragmentPresenter.View
 import io.github.ovso.psytest.ui.video.adapter.VideoAdapterDataModel
 import io.github.ovso.psytest.utils.ResourceProvider
@@ -31,6 +32,20 @@ class VideoFragmentPresenterImpl(
   private var q: String? = null
   private var position: Int = 0
 
+  private fun getParams(): Map<String, Any> = mapOf(
+      KeyName.KEY.get() to Security.KEY.value,
+      KeyName.Q.get() to (q ?: resourceProvider.getString(R.string.app_name)),
+      KeyName.MAX_RESULTS.get() to 3,
+      KeyName.ORDER.get() to "viewCount",
+      KeyName.TYPE.get() to "video",
+      KeyName.VIDEO_SYNDICATED.get() to "any",
+      KeyName.PART.get() to "snippet"
+  ).apply {
+    if (nextPageToken.isNullOrEmpty().not()) {
+      KeyName.PAGE_TOKEN.get() to nextPageToken
+    }
+  }
+
   override fun onActivityCreated(args: Bundle) {
     view.setupRecyclerView()
     view.setupSwipeRefresh()
@@ -40,31 +55,24 @@ class VideoFragmentPresenterImpl(
     view.showTitle(args.getString("title"))
     position = args.getInt(KeyName.POSITION.get())
     q = args.getString("query")
-    searchRequest.getResult(q, nextPageToken)
-        .map {
-          shuffle(it.items)
-          it
-        }
+
+    reqSearch()
+  }
+
+  private fun reqSearch() {
+    fun shuffle(search: Search): Search {
+      shuffle(search.items)
+      return search
+    }
+
+    compositeDisposable += searchRequest.getResult2(getParams())
+        .map(::shuffle)
         .subscribeOn(schedulersFacade.io())
         .observeOn(schedulersFacade.ui())
-        .subscribe(object : SingleObserver<Search> {
-          override fun onSubscribe(d: Disposable) {
-            compositeDisposable.add(d)
-          }
-
-          override fun onSuccess(search: Search) {
-            nextPageToken = search.nextPageToken
-            val items = search.items
-            adapterDataModel.addAll(items)
-            view.refresh()
-            view.hideLoading()
-          }
-
-          override fun onError(e: Throwable) {
-            Timber.e(e)
-            view.hideLoading()
-          }
-        })
+        .doOnSubscribe { view.showLoading() }
+        .doOnSuccess { view.hideLoading() }
+        .doOnError { view.hideLoading() }
+        .subscribe(::onSuccess, ::onError)
   }
 
   override fun onDestroyView() {
@@ -81,33 +89,20 @@ class VideoFragmentPresenterImpl(
 
   }
 
+  private fun onSuccess(search: Search) {
+    nextPageToken = search.nextPageToken
+    val items = search.items
+    adapterDataModel.addAll(items)
+    view.refresh()
+    view.setLoaded()
+  }
+
+  private fun onError(t: Throwable) {
+    Timber.e(t)
+  }
+
   override fun onLoadMore() {
-    if (!TextUtils.isEmpty(nextPageToken) && !TextUtils.isEmpty(q)) {
-      searchRequest.getResult(q, nextPageToken)
-          .map {
-            shuffle(it.items)
-            it
-          }
-          .subscribeOn(schedulersFacade.io())
-          .observeOn(schedulersFacade.ui())
-          .subscribe(object : SingleObserver<Search> {
-            override fun onSubscribe(d: Disposable) {
-              compositeDisposable.add(d)
-            }
-
-            override fun onSuccess(search: Search) {
-              nextPageToken = search.nextPageToken
-              val items = search.items
-              adapterDataModel.addAll(items)
-              view.refresh()
-              view.setLoaded()
-            }
-
-            override fun onError(e: Throwable) {
-              Timber.e(e)
-            }
-          })
-    }
+    reqSearch()
   }
 
   @Deprecated("Unsupported")

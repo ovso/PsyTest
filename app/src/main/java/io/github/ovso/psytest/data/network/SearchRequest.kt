@@ -27,6 +27,12 @@ class SearchRequest @Inject constructor() : BaseRequest<SearchService>() {
     return api.getResult(createQueryMap(q!!, pageToken))
   }
 
+  fun getResult2(
+    params: Map<String, Any>
+  ): Single<Search> {
+    return api.getResult(params)
+  }
+
   private fun createQueryMap(
     q: String,
     pageToken: String?
