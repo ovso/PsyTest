@@ -8,6 +8,7 @@ import io.github.ovso.psytest.data.KeyName
 import io.github.ovso.psytest.data.network.SearchRequest
 import io.github.ovso.psytest.data.network.model.Search
 import io.github.ovso.psytest.data.network.model.SearchItem
+import io.github.ovso.psytest.exts.plusAssign
 import io.github.ovso.psytest.ui.video.VideoFragmentPresenter.View
 import io.github.ovso.psytest.ui.video.adapter.VideoAdapterDataModel
 import io.github.ovso.psytest.utils.ResourceProvider
@@ -40,31 +41,28 @@ class VideoFragmentPresenterImpl(
     view.showTitle(args.getString("title"))
     position = args.getInt(KeyName.POSITION.get())
     q = args.getString("query")
-    searchRequest.getResult(q, nextPageToken)
+
+    fun onSuccess(search: Search) {
+      nextPageToken = search.nextPageToken
+      val items = search.items
+      adapterDataModel.addAll(items)
+      view.refresh()
+      view.hideLoading()
+    }
+
+    fun onFailure(t: Throwable) {
+      Timber.e(t)
+      view.hideLoading()
+    }
+
+    compositeDisposable += searchRequest.getResult(q, nextPageToken)
         .map {
           shuffle(it.items)
           it
         }
         .subscribeOn(schedulersFacade.io())
         .observeOn(schedulersFacade.ui())
-        .subscribe(object : SingleObserver<Search> {
-          override fun onSubscribe(d: Disposable) {
-            compositeDisposable.add(d)
-          }
-
-          override fun onSuccess(search: Search) {
-            nextPageToken = search.nextPageToken
-            val items = search.items
-            adapterDataModel.addAll(items)
-            view.refresh()
-            view.hideLoading()
-          }
-
-          override fun onError(e: Throwable) {
-            Timber.e(e)
-            view.hideLoading()
-          }
-        })
+        .subscribe(::onSuccess, ::onFailure)
   }
 
   override fun onDestroyView() {

@@ -1,7 +1,11 @@
 package io.github.ovso.psytest
 
-import org.junit.Assert
+import io.github.ovso.psytest.data.KeyName
+import io.github.ovso.psytest.data.network.SearchRequest
+import io.github.ovso.psytest.data.network.model.Search
+import io.github.ovso.psytest.utils.TestSchedulers
 import org.junit.Test
+import java.util.Collections
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -9,8 +13,44 @@ import org.junit.Test
  * @see [Testing documentation](http://d.android.com/tools/testing)
  */
 class ExampleUnitTest {
-  @Test fun addition_isCorrect() {
-    Assert.assertEquals(4, 2 + 2.toLong())
+
+  private val searchRequest: SearchRequest = SearchRequest()
+  private var nextPageToken: String? = null
+  private val schedulers: TestSchedulers = TestSchedulers()
+
+  @Test
+  fun req_search_test() {
+    fun onSuccess(search: Search) {
+      println(search.toString())
+    }
+
+    fun onFailure(t: Throwable) {
+      println("onFailure")
+      println(t)
+    }
+
+    val params = mapOf(
+        KeyName.KEY.get() to Security.KEY.value,
+        KeyName.Q.get() to "심리테스트",
+        KeyName.MAX_RESULTS.get() to 3,
+        KeyName.ORDER.get() to "viewCount",
+        KeyName.TYPE.get() to "video",
+        KeyName.VIDEO_SYNDICATED.get() to "any",
+        KeyName.PART.get() to "snippet"
+    ).apply {
+      if (nextPageToken.isNullOrEmpty().not()) {
+        KeyName.PAGE_TOKEN.get() to nextPageToken
+      }
+    }
+
+    searchRequest.getResult2(params)
+        .map {
+          it.items = it.items!!.shuffled()
+          it
+        }
+        .subscribeOn(schedulers.io())
+        .observeOn(schedulers.ui())
+        .subscribe(::onSuccess, ::onFailure)
   }
 
   @Test
