@@ -1,11 +1,12 @@
 package io.github.ovso.psytest
 
+import com.google.gson.JsonElement
 import io.github.ovso.psytest.data.KeyName
 import io.github.ovso.psytest.data.network.SearchRequest
+import io.github.ovso.psytest.data.network.SearchRequest2
 import io.github.ovso.psytest.data.network.model.Search
 import io.github.ovso.psytest.utils.TestSchedulers
 import org.junit.Test
-import java.util.Collections
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -69,4 +70,20 @@ class ExampleUnitTest {
     println(newItems2)
   }
 
+  @Test
+  fun jsonTest() {
+    //https://firebasestorage.googleapis.com/v0/b/broccoli-stg.appspot.com/o/loanExpress%2FloanExpress_test.json?alt=media&token=9b163352-a23f-4ac0-865c-2381cb39ea68
+    fun onSuccess(j: JsonElement) {
+      println(j.toString())
+    }
+
+    fun onError(t: Throwable) {
+      println(t)
+    }
+
+    SearchRequest2().getResult()
+        .subscribeOn(schedulers.io())
+        .observeOn(schedulers.ui())
+        .subscribe(::onSuccess, ::onError)
+  }
 }
