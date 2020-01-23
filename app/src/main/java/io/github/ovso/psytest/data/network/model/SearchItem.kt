@@ -5,4 +5,6 @@ class SearchItem {
   val etag: String? = null
   val id: SearchItemId? = null
   val snippet: Snippet? = null
+
+  fun isEmpty() = id?.videoId.isNullOrEmpty()
 }

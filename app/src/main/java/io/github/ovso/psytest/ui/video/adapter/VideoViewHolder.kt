@@ -9,8 +9,8 @@ import io.github.ovso.psytest.R
 import io.github.ovso.psytest.data.network.model.SearchItem
 import io.github.ovso.psytest.ui.base.interfaces.OnRecyclerViewItemClickListener
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.list_item_video.imageview_video_item
-import kotlinx.android.synthetic.main.list_item_video.play_button
+import kotlinx.android.synthetic.main.item_video.imageview_video_item
+import kotlinx.android.synthetic.main.item_video.play_button
 
 class VideoViewHolder private constructor(
   override val containerView: View?
@@ -31,7 +31,7 @@ class VideoViewHolder private constructor(
 
     fun create(parent: ViewGroup): VideoViewHolder {
       return VideoViewHolder(
-          LayoutInflater.from(parent.context).inflate(R.layout.list_item_video, parent, false)
+          LayoutInflater.from(parent.context).inflate(R.layout.item_video, parent, false)
       )
     }
   }

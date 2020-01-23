@@ -2,11 +2,13 @@ package io.github.ovso.psytest.ui.video.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import io.github.ovso.psytest.R
 import io.github.ovso.psytest.data.network.model.SearchItem
+import io.github.ovso.psytest.ui.base.ViewHolderProvider
 import io.github.ovso.psytest.ui.base.interfaces.OnRecyclerViewItemClickListener
 import java.util.ArrayList
 
-class VideoAdapter : RecyclerView.Adapter<VideoViewHolder>(),
+class VideoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     VideoAdapterView,
     VideoAdapterDataModel<SearchItem> {
   var onRecyclerViewItemClickListener: OnRecyclerViewItemClickListener<SearchItem>? = null
@@ -18,17 +20,27 @@ class VideoAdapter : RecyclerView.Adapter<VideoViewHolder>(),
   override fun onCreateViewHolder(
     viewGroup: ViewGroup,
     viewType: Int
-  ): VideoViewHolder {
-    return VideoViewHolder.create(viewGroup)
+  ): RecyclerView.ViewHolder {
+    return ViewHolderProvider.create(viewGroup, viewType)
   }
 
   override fun onBindViewHolder(
-    viewHolder: VideoViewHolder,
+    viewHolder: RecyclerView.ViewHolder,
     position: Int
   ) {
-    viewHolder.bind(getItem(position))
-    viewHolder.onItemClickListener = onRecyclerViewItemClickListener
+    when (viewHolder) {
+      is VideoViewHolder -> {
+        viewHolder.run {
+          bind(getItem(position))
+          onItemClickListener = onRecyclerViewItemClickListener
+        }
+      }
+      is AdsViewHolder -> viewHolder.bind(getItem(position))
+    }
   }
+
+  override fun getItemViewType(position: Int) =
+    if (getItem(position).isEmpty()) R.layout.item_ads_banner else R.layout.item_video
 
   override fun getItemCount(): Int {
     return size

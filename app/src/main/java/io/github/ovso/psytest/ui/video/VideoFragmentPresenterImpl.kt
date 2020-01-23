@@ -35,7 +35,7 @@ class VideoFragmentPresenterImpl(
   private fun getParams(): Map<String, Any> = mapOf(
       KeyName.KEY.get() to Security.KEY.value,
       KeyName.Q.get() to (q ?: resourceProvider.getString(R.string.app_name)),
-      KeyName.MAX_RESULTS.get() to 3,
+      KeyName.MAX_RESULTS.get() to 11,
       KeyName.ORDER.get() to "viewCount",
       KeyName.TYPE.get() to "video",
       KeyName.VIDEO_SYNDICATED.get() to "any",
@@ -65,8 +65,22 @@ class VideoFragmentPresenterImpl(
       return search
     }
 
+    fun insertAds(search: Search): Search {
+      val oldItems = search.items
+      val newItems = mutableListOf<SearchItem>()
+      val count = oldItems!!.count()
+      for (i in 0 until count step 5) {
+        val toIndex = if (i + 5 > count) count else i + 5
+        newItems.add(SearchItem()) // null properties
+        newItems.addAll(oldItems.subList(i, toIndex))
+      }
+      search.items = newItems
+      return search
+    }
+
     compositeDisposable += searchRequest.getResult2(getParams())
         .map(::shuffle)
+        .map(::insertAds)
         .subscribeOn(schedulersFacade.io())
         .observeOn(schedulersFacade.ui())
         .doOnSubscribe { view.showLoading() }
