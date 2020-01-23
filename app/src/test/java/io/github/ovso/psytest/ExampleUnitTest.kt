@@ -24,7 +24,10 @@ class ExampleUnitTest {
   @Test
   fun req_search_test() {
     fun onSuccess(search: Search) {
-      println(search.items?.size)
+//      println(search.items?.size)
+      search.items?.forEach {
+        println(it.id?.videoId.isNullOrEmpty())
+      }
     }
 
     fun onFailure(t: Throwable) {

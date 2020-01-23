@@ -35,7 +35,7 @@ class VideoFragmentPresenterImpl(
   private fun getParams(): Map<String, Any> = mapOf(
       KeyName.KEY.get() to Security.KEY.value,
       KeyName.Q.get() to (q ?: resourceProvider.getString(R.string.app_name)),
-      KeyName.MAX_RESULTS.get() to 3,
+      KeyName.MAX_RESULTS.get() to 11,
       KeyName.ORDER.get() to "viewCount",
       KeyName.TYPE.get() to "video",
       KeyName.VIDEO_SYNDICATED.get() to "any",
