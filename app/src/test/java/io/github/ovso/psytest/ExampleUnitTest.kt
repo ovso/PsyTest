@@ -5,8 +5,10 @@ import io.github.ovso.psytest.data.KeyName
 import io.github.ovso.psytest.data.network.SearchRequest
 import io.github.ovso.psytest.data.network.SearchRequest2
 import io.github.ovso.psytest.data.network.model.Search
+import io.github.ovso.psytest.data.network.model.SearchItem
 import io.github.ovso.psytest.utils.TestSchedulers
 import org.junit.Test
+import java.util.Collections
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -22,7 +24,7 @@ class ExampleUnitTest {
   @Test
   fun req_search_test() {
     fun onSuccess(search: Search) {
-      println(search.toString())
+      println(search.items?.size)
     }
 
     fun onFailure(t: Throwable) {
@@ -33,7 +35,7 @@ class ExampleUnitTest {
     val params = mapOf(
         KeyName.KEY.get() to Security.KEY.value,
         KeyName.Q.get() to "심리테스트",
-        KeyName.MAX_RESULTS.get() to 3,
+        KeyName.MAX_RESULTS.get() to 6,
         KeyName.ORDER.get() to "viewCount",
         KeyName.TYPE.get() to "video",
         KeyName.VIDEO_SYNDICATED.get() to "any",
@@ -44,11 +46,28 @@ class ExampleUnitTest {
       }
     }
 
+    fun shuffle(search: Search): Search {
+      Collections.shuffle(search.items)
+      return search
+    }
+
+    fun insertAds(search: Search): Search {
+      val oldItems = search.items
+      val newItems = mutableListOf<SearchItem>()
+      val count = oldItems!!.count()
+      val stepCount = 5
+      for (i in 0 until count step stepCount) {
+        val toIndex = if (i + stepCount > count) count else i + stepCount
+        newItems.add(SearchItem()) // null properties
+        newItems.addAll(oldItems.subList(i, toIndex))
+      }
+      search.items = newItems
+      return search
+    }
+
     searchRequest.getResult2(params)
-        .map {
-          it.items = it.items!!.shuffled()
-          it
-        }
+        .map(::shuffle)
+        .map(::insertAds)
         .subscribeOn(schedulers.io())
         .observeOn(schedulers.ui())
         .subscribe(::onSuccess, ::onFailure)
@@ -56,11 +75,12 @@ class ExampleUnitTest {
 
   @Test
   fun insertAdsLoopTest() {
-    val originItems = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11")
+    val originItems = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9")
     val newItems = mutableListOf<String>()
     val count = originItems.count()
-    for (i in 0 until count step 5) {
-      val toIndex = if (i + 5 > count) count else i + 5
+    val stepCount = 5
+    for (i in 0 until count step stepCount) {
+      val toIndex = if (i + stepCount > count) count else i + stepCount
       println(originItems.subList(i, toIndex))
       newItems.add("ㅋ")
       newItems.addAll(originItems.subList(i, toIndex))
